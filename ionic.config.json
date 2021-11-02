@@ -1,0 +1,7 @@
+{
+  "name": "Ventura Mystica",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
