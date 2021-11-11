@@ -1,0 +1,3 @@
+# Generates game configuration for Terra Mystica.
+
+Work in progres...
