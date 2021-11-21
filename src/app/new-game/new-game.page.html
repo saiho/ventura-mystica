@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>New game</ion-title>
+    <ion-title translate>new-game</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -9,7 +9,7 @@
   <ion-list>
     <ion-radio-group [ngModel]="numPlayers.toString()" (ngModelChange)="onNumPlayersChange($event)">
       <ion-item>
-        <ion-label>Number of players</ion-label>
+        <ion-label translate>number-of-players</ion-label>
       </ion-item>
       <ion-row>
         <ion-col>
@@ -39,53 +39,53 @@
       </ion-row>
     </ion-radio-group>
     <ion-item>
-      <ion-label position="floating">Number of factions</ion-label>
+      <ion-label position="floating" translate>number-of-factions</ion-label>
       <ion-range [(ngModel)]="numFactions" pin="true" snaps="true" ticks="true" min="{{numPlayers}}" max="10">
       </ion-range>
-      <ion-note>Players can choose between {{numFactions}} factions</ion-note>
+      <ion-note translate [translateParams]="{num: numFactions}">number-of-factions-note</ion-note>
     </ion-item>
     <ion-item>
-      <ion-label>Include expansion: Fire & Ice</ion-label>
+      <ion-label translate>include-expansion-fire-ice</ion-label>
       <ion-checkbox [(ngModel)]="extensionFireIce"></ion-checkbox>
     </ion-item>
     <ion-item>
-      <ion-label>Include expansion: Merchants of the Seas</ion-label>
+      <ion-label translate>include-expansion-merchants</ion-label>
       <ion-checkbox [(ngModel)]="extensionMerchants"></ion-checkbox>
     </ion-item>
-    <ion-button (click)="onClickGenerate()">Generate</ion-button>
+    <ion-button (click)="onClickGenerate()" translate>generate</ion-button>
   </ion-list>
   <ion-list>
     <ion-item-divider>
-      <ion-label>Factions</ion-label>
+      <ion-label translate>factions</ion-label>
     </ion-item-divider>
     <ion-row>
       <ion-col>
         <ion-item>
           <ion-icon name="body-outline"></ion-icon>
-          <ion-label>Acolytes</ion-label>
+          <ion-label translate>faction.acolytes</ion-label>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item>
           <ion-icon name="body-outline"></ion-icon>
-          <ion-label>Alchemists</ion-label>
+          <ion-label translate>faction.alchemists</ion-label>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item>
           <ion-icon name="body-outline"></ion-icon>
-          <ion-label>Auren</ion-label>
+          <ion-label translate>faction.auren</ion-label>
         </ion-item>
       </ion-col>
     </ion-row>
     <ion-item-divider>
-      <ion-label>Bonus cards</ion-label>
+      <ion-label translate>bonus-cards</ion-label>
     </ion-item-divider>
     <ion-item-divider>
-      <ion-label>Scoring tiles</ion-label>
+      <ion-label translate>scoring-tiles</ion-label>
     </ion-item-divider>
     <ion-item-divider>
-      <ion-label>Final scoring tile</ion-label>
+      <ion-label translate>final-scoring-tile</ion-label>
     </ion-item-divider>
   </ion-list>
 
