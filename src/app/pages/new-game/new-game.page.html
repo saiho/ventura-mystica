@@ -7,7 +7,15 @@
 <ion-content>
 
   <ion-list>
-    <ion-radio-group [ngModel]="numPlayers.toString()" (ngModelChange)="onNumPlayersChange($event)">
+    <ion-item>
+      <ion-label translate>profile</ion-label>
+      <ion-select [ngModel]="profile" (ngModelChange)="onProfileChange($event)" [compareWith]="sameProfile">
+        <ion-select-option *ngFor="let p of allProfiles" [value]="p">
+          {{p.predefined ? ('profile-name.' + p.name | translate) : p.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-radio-group [ngModel]="profile.numPlayers.toString()" (ngModelChange)="onNumPlayersChange($event)">
       <ion-item>
         <ion-label translate>number-of-players</ion-label>
       </ion-item>
@@ -39,18 +47,20 @@
       </ion-row>
     </ion-radio-group>
     <ion-item>
+      <ion-label translate>factions</ion-label>
+      <ion-select multiple="true" [ngModel]="profile.factions" (ngModelChange)="onFactionsChange($event)"
+        selectedText="{{'factions-selected' | translate:({ num: profile.factions.length })}}">
+        <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>{{faction}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
       <ion-label position="floating" translate>number-of-factions</ion-label>
-      <ion-range [(ngModel)]="numFactions" pin="true" snaps="true" ticks="true" min="{{numPlayers}}" max="10">
+      <ion-range [(ngModel)]="profile.numFactions" pin="true" snaps="true" ticks="true" min="{{profile.numPlayers}}"
+        max="{{profile.factions.length <= profile.numPlayers ? profile.numPlayers + 1 : profile.factions.length}}"
+        disabled="{{profile.factions.length <= profile.numPlayers}}">
       </ion-range>
-      <ion-note translate [translateParams]="{num: numFactions}">number-of-factions-note</ion-note>
-    </ion-item>
-    <ion-item>
-      <ion-label translate>include-expansion-fire-ice</ion-label>
-      <ion-checkbox [(ngModel)]="extensionFireIce"></ion-checkbox>
-    </ion-item>
-    <ion-item>
-      <ion-label translate>include-expansion-merchants</ion-label>
-      <ion-checkbox [(ngModel)]="extensionMerchants"></ion-checkbox>
+      <ion-note translate [translateParams]="{ num: profile.numFactions }">number-of-factions-note</ion-note>
     </ion-item>
     <ion-button (click)="onClickGenerate()" translate>generate</ion-button>
   </ion-list>
@@ -62,19 +72,19 @@
       <ion-col>
         <ion-item>
           <ion-icon name="body-outline"></ion-icon>
-          <ion-label translate>faction.acolytes</ion-label>
+          <ion-label translate>acolytes</ion-label>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item>
           <ion-icon name="body-outline"></ion-icon>
-          <ion-label translate>faction.alchemists</ion-label>
+          <ion-label translate>alchemists</ion-label>
         </ion-item>
       </ion-col>
       <ion-col>
         <ion-item>
           <ion-icon name="body-outline"></ion-icon>
-          <ion-label translate>faction.auren</ion-label>
+          <ion-label translate>auren</ion-label>
         </ion-item>
       </ion-col>
     </ion-row>
