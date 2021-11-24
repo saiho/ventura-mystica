@@ -1,89 +1,92 @@
-export enum Factions {
-  // Basic
-  alchemists = 'alchemists',
-  auren = 'auren',
-  chaosMagicians = 'chaosmagicians',
-  cultists = 'cultists',
-  darklings = 'darklings',
-  dwarves = 'dwarves',
-  engineers = 'engineers',
-  fakirs = 'fakirs',
-  giants = 'giants',
-  halflings = 'halflings',
-  mermaids = 'mermaids',
-  nomads = 'nomads',
-  riverwalkers = 'riverwalkers',
-  shapeshifters = 'shapeshifters',
-  swarmlings = 'swarmlings',
-  witches = 'witches',
-  // Fire & Ice
-  acolytes = 'acolytes',
-  dragonlords = 'dragonlords',
-  iceMaidens = 'icemaidens',
-  yetis = 'yetis',
-  // Power is coming
-  dryads = 'dryads',
-  illusionists = 'illusionists',
-  middleMen = 'middlemen',
-  mutants = 'mutants',
-  seafarers = 'seafarers',
-  shamans = 'shamans',
-  shaolins = 'shaolins',
-  vizirs = 'vizirs',
-  // Power is coming + Fire & Ice
-  efreets = 'efreets',
-  inuits = 'inuits'
+import { Terrain } from './terrain';
+
+export class Faction {
+  constructor(
+    public readonly name: string,
+    public readonly terrain: Terrain
+  ) {
+  }
+
+  public toString(): string {
+    return this.name;
+  };
 }
 
+export const FACTIONS = {
+  // Basic
+  alchemists: new Faction('alchemists', Terrain.swamp),
+  auren: new Faction('auren', Terrain.forest),
+  chaosMagicians: new Faction('chaosmagicians', Terrain.wasteland),
+  cultists: new Faction('cultists', Terrain.plains),
+  darklings: new Faction('darklings', Terrain.swamp),
+  dwarves: new Faction('dwarves', Terrain.mountains),
+  engineers: new Faction('engineers', Terrain.mountains),
+  fakirs: new Faction('fakirs', Terrain.desert),
+  giants: new Faction('giants', Terrain.wasteland),
+  halflings: new Faction('halflings', Terrain.plains),
+  mermaids: new Faction('mermaids', Terrain.lakes),
+  nomads: new Faction('nomads', Terrain.desert),
+  swarmlings: new Faction('swarmlings', Terrain.lakes),
+  witches: new Faction('witches', Terrain.forest),
+  // Fire & Ice
+  acolytes: new Faction('acolytes', Terrain.volcano),
+  dragonlords: new Faction('dragonlords', Terrain.volcano),
+  iceMaidens: new Faction('icemaidens', Terrain.ice),
+  riverwalkers: new Faction('riverwalkers', Terrain.multiple),
+  shapeshifters: new Faction('shapeshifters', Terrain.multiple),
+  yetis: new Faction('yetis', Terrain.ice),
+  // Power is coming
+  dryads: new Faction('dryads', Terrain.forest),
+  illusionists: new Faction('illusionists', Terrain.swamp),
+  middleMen: new Faction('middlemen', Terrain.mountains),
+  seafarers: new Faction('seafarers', Terrain.lakes),
+  shamans: new Faction('shamans', Terrain.plains),
+  shaolins: new Faction('shaolins', Terrain.wasteland),
+  vizirs: new Faction('vizirs', Terrain.desert),
+  // Power is coming + Fire & Ice
+  efreets: new Faction('efreets', Terrain.volcano),
+  inuits: new Faction('inuits', Terrain.ice),
+  mutants: new Faction('mutants', Terrain.multiple)
+};
+
+export const FACTIONS_ALL = Object.values(FACTIONS);
+
 export const FACTIONS_BASIC = [
-  Factions.alchemists,
-  Factions.auren,
-  Factions.chaosMagicians,
-  Factions.cultists,
-  Factions.darklings,
-  Factions.dwarves,
-  Factions.engineers,
-  Factions.fakirs,
-  Factions.giants,
-  Factions.halflings,
-  Factions.mermaids,
-  Factions.nomads,
-  Factions.riverwalkers,
-  Factions.shapeshifters,
-  Factions.swarmlings,
-  Factions.witches
+  FACTIONS.alchemists,
+  FACTIONS.auren,
+  FACTIONS.chaosMagicians,
+  FACTIONS.cultists,
+  FACTIONS.darklings,
+  FACTIONS.dwarves,
+  FACTIONS.engineers,
+  FACTIONS.fakirs,
+  FACTIONS.giants,
+  FACTIONS.halflings,
+  FACTIONS.mermaids,
+  FACTIONS.nomads,
+  FACTIONS.swarmlings,
+  FACTIONS.witches
 ];
 
 export const FACTIONS_FIRE_ICE = [
   ...FACTIONS_BASIC,
-  Factions.acolytes,
-  Factions.dragonlords,
-  Factions.iceMaidens,
-  Factions.yetis
+  FACTIONS.acolytes,
+  FACTIONS.dragonlords,
+  FACTIONS.iceMaidens,
+  FACTIONS.riverwalkers,
+  FACTIONS.shapeshifters,
+  FACTIONS.yetis
 ];
 
 export const FACTIONS_POWER_COMING = [
   ...FACTIONS_BASIC,
-  Factions.dryads,
-  Factions.illusionists,
-  Factions.middleMen,
-  Factions.mutants,
-  Factions.seafarers,
-  Factions.shamans,
-  Factions.shaolins,
-  Factions.vizirs
+  FACTIONS.dryads,
+  FACTIONS.illusionists,
+  FACTIONS.middleMen,
+  FACTIONS.seafarers,
+  FACTIONS.shamans,
+  FACTIONS.shaolins,
+  FACTIONS.vizirs
 ];
 
-export const FACTIONS_POWER_COMING_FIRE_ICE = [
-  ...FACTIONS_FIRE_ICE,
-  Factions.dryads,
-  Factions.illusionists,
-  Factions.middleMen,
-  Factions.mutants,
-  Factions.seafarers,
-  Factions.shamans,
-  Factions.shaolins,
-  Factions.vizirs,
-  Factions.efreets,
-  Factions.inuits
-];
+export const FACTIONS_POWER_COMING_FIRE_ICE = FACTIONS_ALL;

@@ -1,5 +1,5 @@
 import {
-  Factions,
+  Faction,
   FACTIONS_BASIC,
   FACTIONS_FIRE_ICE,
   FACTIONS_POWER_COMING,
@@ -9,7 +9,7 @@ import {
 export class Profile {
   public constructor(
     public name: string,
-    public factions: Factions[],
+    public factions: Faction[],
     public exraFinalScoringTile: boolean,
     public predefined: boolean = false,
     public numPlayers: number = 2,
@@ -20,6 +20,10 @@ export class Profile {
   public clone(): Profile {
     return { ...this };
   }
+
+  public toString(): string {
+    return this.name;
+  };
 }
 
 export const BASIC_PROFILE = new Profile(

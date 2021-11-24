@@ -8,8 +8,9 @@
   "factions": "Factions",
   "factions-selected": "{{num}} factions selected…",
   "bonus-cards": "Bonus cards",
+  "extra-final-scoring-tile": "Include extra final scoring tile",
   "scoring-tiles": "Scoring tiles",
-  "final-scoring-tile": "Final scoring tile",
+  "final-scoring-tiles": "Final scoring tiles",
   "alchemists": "Alchemists",
   "auren": "Auren",
   "chaosmagicians": "Chaos Magicians",
@@ -41,7 +42,7 @@
   "efreets": "Efreets",
   "inuits": "Inuits",
   "profile": "Profile",
-  "profile-name": {
+  "predefined-profile": {
     "basic": "Basic game set, without extensions (Official)",
     "fire-ice": "Fire & Ice (Official)",
     "mechants": "Merchants of the Seas (Official)",

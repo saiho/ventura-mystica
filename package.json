@@ -28,6 +28,7 @@
     "@ionic/angular": "^6.0.0-rc.3",
     "@ngx-translate/core": "^14.0.0",
     "@ngx-translate/http-loader": "^7.0.0",
+    "@types/lodash": "^4.14.177",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.1",
     "zone.js": "~0.11.4"
