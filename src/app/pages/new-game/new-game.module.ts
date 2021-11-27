@@ -10,4 +10,4 @@ import { NewGamePage } from './new-game.page';
   ],
   declarations: [NewGamePage]
 })
-export class NewGamePageModule {}
+export class NewGamePageModule { }

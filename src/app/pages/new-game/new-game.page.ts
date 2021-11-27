@@ -19,7 +19,7 @@ export class NewGamePage implements OnInit {
 
   constructor() {
     this.correctNumFactions();
-   }
+  }
 
   ngOnInit() { }
 
