@@ -10,7 +10,7 @@ export class Profile {
   public constructor(
     public name: string,
     public factions: Faction[],
-    public exraFinalScoringTile: boolean,
+    public extraFinalScoringTile: boolean,
     public predefined: boolean = false,
     public numPlayers: number = 2,
     public numFactions: number = numPlayers
