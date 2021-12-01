@@ -1,3 +1,4 @@
+import * as _ from 'lodash';
 import {
   Faction,
   FACTIONS_BASIC,
@@ -18,7 +19,7 @@ export class Profile {
   }
 
   public clone(): Profile {
-    return { ...this };
+    return _.clone(this);
   }
 
   public toString(): string {

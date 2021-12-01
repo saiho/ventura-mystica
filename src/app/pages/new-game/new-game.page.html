@@ -6,65 +6,77 @@
 
 <ion-content>
 
-  <ion-list>
-    <ion-item>
-      <ion-label translate>profile</ion-label>
-      <ion-select [ngModel]="profile" (ngModelChange)="onProfileChange($event)" [compareWith]="sameProfile">
-        <ion-select-option *ngFor="let prof of allProfiles" [value]="prof">
-          {{prof.predefined ? ('predefined-profile.' + prof | translate) : prof}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
-
-    <ion-radio-group [ngModel]="profile.numPlayers" (ngModelChange)="onNumPlayersChange($event)">
-      <ion-item lines="none" class="item-label-stacked">
-        <ion-label translate>number-of-players</ion-label>
-        <ion-row>
-          <ion-col *ngFor="let num of [2, 3, 4, 5]">
-            <ion-item>
-              <ion-label>{{num}}</ion-label>
-              <ion-radio slot="start" [value]="num"></ion-radio>
-            </ion-item>
-          </ion-col>
-        </ion-row>
+  <form #form="ngForm">
+    <ion-list>
+      <ion-item>
+        <ion-label translate>profile</ion-label>
+        <ion-select name="profile" [ngModel]="profile" (ngModelChange)="onProfileModelChange($event)"
+          [compareWith]="sameProfile"
+          [selectedText]="profile.predefined ? ('predefined-profile.' + profile | translate) : profile">
+          <ion-select-option *ngFor="let prof of allProfiles" [value]="prof">
+            {{prof.predefined ? ('predefined-profile.' + prof | translate) : prof}}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
-    </ion-radio-group>
 
-    <ion-item>
-      <ion-label>
-        <ion-text translate>factions</ion-text>
-        <p>
-          <ion-note class="ion-text-wrap" translate>factions-note</ion-note>
-        </p>
-      </ion-label>
-      <ion-select multiple="true" [ngModel]="profile.factions" (ngModelChange)="onFactionsChange($event)"
-        [selectedText]="'factions-selected' | translate:({ num: profile.factions.length })">
-        <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>{{faction}}
-        </ion-select-option>
-      </ion-select>
-    </ion-item>
+      <ion-radio-group name="numPlayers" [(ngModel)]="profile.numPlayers" (ionChange)="onNumPlayersChange()">
+        <ion-item lines="none" class="item-label-stacked">
+          <ion-label translate>number-of-players</ion-label>
+          <ion-row>
+            <ion-col *ngFor="let num of [2, 3, 4, 5]">
+              <ion-item>
+                <ion-label>{{num}}</ion-label>
+                <ion-radio slot="start" [value]="num"></ion-radio>
+              </ion-item>
+            </ion-col>
+          </ion-row>
+        </ion-item>
+      </ion-radio-group>
 
-    <ion-item class="item-label-stacked">
-      <ion-label>
-        <ion-text translate>number-of-factions</ion-text>
-        <p>
-          <ion-note class="ion-text-wrap" translate [translateParams]="{ num: profile.numFactions }">number-of-factions-note
-          </ion-note>
-        </p>
-      </ion-label>
-      <ion-range [(ngModel)]="profile.numFactions" pin="true" snaps="true" ticks="true" [min]="profile.numPlayers"
-        [max]="maxNumFactions <= profile.numPlayers ? profile.numPlayers + 1 : maxNumFactions"
-        [disabled]="maxNumFactions <= profile.numPlayers">
-      </ion-range>
-    </ion-item>
+      <ion-item>
+        <ion-label>
+          <ion-text translate>factions</ion-text>
+          <p>
+            <ion-note class="ion-text-wrap" translate>factions-note</ion-note>
+          </p>
+        </ion-label>
+        <ion-select #factionsSelect="ngModel" name="factions" [(ngModel)]="profile.factions"
+          (ionChange)="onFactionsChange()"
+          [selectedText]="'factions-selected' | translate:({ num: profile.factions.length })" multiple="true"
+          appInputFactionsValidator [numPlayers]="profile.numPlayers">
+          <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>{{faction}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="ion-padding-horizontal ion-padding-bottom">
+        <ion-text *ngIf="factionsSelect.errors?.invalidInputFactions" color="danger" translate>factions-invalid
+        </ion-text>
+      </div>
 
-    <ion-item>
-      <ion-label translate>extra-final-scoring-tile</ion-label>
-      <ion-checkbox [(ngModel)]="profile.extraFinalScoringTile"></ion-checkbox>
-    </ion-item>
+      <ion-item class="item-label-stacked">
+        <ion-label>
+          <ion-text translate>number-of-factions</ion-text>
+          <p>
+            <ion-note class="ion-text-wrap" translate [translateParams]="{ num: profile.numFactions }">
+              number-of-factions-note
+            </ion-note>
+          </p>
+        </ion-label>
+        <ion-range name="numFactions" [(ngModel)]="profile.numFactions" pin="true" snaps="true" ticks="true"
+          [min]="profile.numPlayers"
+          [max]="maxNumFactions <= profile.numPlayers ? profile.numPlayers + 1 : maxNumFactions"
+          [disabled]="maxNumFactions <= profile.numPlayers">
+        </ion-range>
+      </ion-item>
 
-    <ion-button (click)="onClickGenerate()" translate>generate</ion-button>
-  </ion-list>
+      <ion-item>
+        <ion-label translate>extra-final-scoring-tile</ion-label>
+        <ion-checkbox [(ngModel)]="profile.extraFinalScoringTile" name="extraFinalScoringTile"></ion-checkbox>
+      </ion-item>
+
+      <ion-button (click)="onClickGenerate()" [disabled]="!form.valid" translate>generate</ion-button>
+    </ion-list>
+  </form>
 
   <ion-list>
     <ion-item-group>
@@ -99,6 +111,6 @@
         <ion-label translate>final-scoring-tiles</ion-label>
       </ion-item-divider>
     </ion-item-group>
-</ion-list>
+  </ion-list>
 
 </ion-content>

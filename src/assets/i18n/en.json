@@ -6,6 +6,7 @@
   "factions": "Factions",
   "factions-note": "Factions to pick randomly from.",
   "factions-selected": "{{num}} factions selected…",
+  "factions-invalid": "There are more players than distinct terrains for the selected factions. Select more factions.",
   "number-of-factions": "Number of factions",
   "number-of-factions-note": "Players can choose between {{num}} factions.",
   "extra-final-scoring-tile": "Include extra final scoring tile",

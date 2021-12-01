@@ -3,9 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { InputFactionsValidatorDirective } from './input-factions-validator.directive';
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    InputFactionsValidatorDirective
+  ],
   imports: [
     CommonModule,
     FormsModule,
@@ -16,7 +19,8 @@ import { TranslateModule } from '@ngx-translate/core';
     CommonModule,
     FormsModule,
     TranslateModule,
-    IonicModule
+    IonicModule,
+    InputFactionsValidatorDirective
   ]
 })
 export class SharedModule { }

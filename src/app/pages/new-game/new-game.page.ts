@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
+import { NgModel } from '@angular/forms';
 import * as _ from 'lodash';
 import { BASIC_PROFILE, PREDEFINED_PROFILES, Profile } from 'src/app/model/profile';
 import { Faction, FACTIONS_ALL } from '../../model/faction';
@@ -10,31 +11,35 @@ import { Faction, FACTIONS_ALL } from '../../model/faction';
 })
 export class NewGamePage implements OnInit {
 
+  @ViewChild('factionsSelect')
+  private factionsSelect: NgModel;
+
   profile: Profile = BASIC_PROFILE.clone();
-  pickedFactions: Faction[];
   maxNumFactions = 0;
+  pickedFactions: Faction[];
 
   readonly allProfiles = PREDEFINED_PROFILES;
   readonly allFactions = FACTIONS_ALL;
 
-  constructor() {
+  constructor(private changeDetectorRef: ChangeDetectorRef) {
     this.correctNumFactions();
   }
 
   ngOnInit() { }
 
-  onProfileChange(value: Profile) {
+  onProfileModelChange(value: Profile) {
+    // Clone the profile so temporal adjustments are not preserved when switching to another profile
     this.profile = value.clone();
     this.correctNumFactions();
   }
 
-  onNumPlayersChange(value: number) {
-    this.profile.numPlayers = value;
+  onNumPlayersChange() {
     this.correctNumFactions();
+    this.changeDetectorRef.detectChanges(); // Force update values bound to the validator
+    this.factionsSelect.control.updateValueAndValidity();
   }
 
-  onFactionsChange(value: Faction[]) {
-    this.profile.factions = value;
+  onFactionsChange() {
     this.correctNumFactions();
   }
 
