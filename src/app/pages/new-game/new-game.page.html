@@ -12,9 +12,9 @@
         <ion-label translate>profile</ion-label>
         <ion-select name="profile" [ngModel]="profile" (ngModelChange)="onProfileModelChange($event)"
           [compareWith]="sameProfile"
-          [selectedText]="profile.predefined ? ('predefined-profile.' + profile | translate) : profile">
+          [selectedText]="profile.predefined ? (profile.name | translate) : profile.name">
           <ion-select-option *ngFor="let prof of allProfiles" [value]="prof">
-            {{prof.predefined ? ('predefined-profile.' + prof | translate) : prof}}
+            {{prof.predefined ? (prof.name | translate) : prof.name}}
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -40,11 +40,10 @@
             <ion-note class="ion-text-wrap" translate>factions-note</ion-note>
           </p>
         </ion-label>
-        <ion-select #factionsSelect="ngModel" name="factions" [(ngModel)]="profile.factions"
-          (ionChange)="onFactionsChange()"
+        <ion-select #factionsSelect="ngModel" name="factions" [(ngModel)]="profile.factions" (ionChange)="onFactionsChange()"
           [selectedText]="'factions-selected' | translate:({ num: profile.factions.length })" multiple="true"
           appInputFactionsValidator [numPlayers]="profile.numPlayers">
-          <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>{{faction}}
+          <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>{{faction.name}}
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -70,6 +69,25 @@
       </ion-item>
 
       <ion-item>
+        <ion-label>
+          <ion-text translate>bonus-cards</ion-text>
+          <p>
+            <ion-note class="ion-text-wrap" translate>bonus-cards-note</ion-note>
+          </p>
+        </ion-label>
+        <ion-select #bonusCardsSelect="ngModel" name="bonusCards" [(ngModel)]="profile.bonusCards"
+          [selectedText]="'bonus-cards-selected' | translate:({ num: profile.bonusCards.length })" multiple="true"
+          appInputBonusCardsValidator [numPlayers]="profile.numPlayers">
+          <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>{{bonusCard.description}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="ion-padding-horizontal ion-padding-bottom">
+        <ion-text *ngIf="bonusCardsSelect.errors?.invalidInputBonusCards" color="danger" translate>bonus-cards-invalid
+        </ion-text>
+      </div>
+
+      <ion-item>
         <ion-label translate>extra-final-scoring-tile</ion-label>
         <ion-checkbox [(ngModel)]="profile.extraFinalScoringTile" name="extraFinalScoringTile"></ion-checkbox>
       </ion-item>
@@ -78,17 +96,16 @@
     </ion-list>
   </form>
 
-  <ion-list>
+  <ion-list *ngIf="generated">
     <ion-item-group>
       <ion-item-divider>
         <ion-label translate>factions</ion-label>
       </ion-item-divider>
-
       <ion-row>
         <ion-col *ngFor="let faction of pickedFactions">
           <ion-item>
             <ion-icon name="body-outline"></ion-icon>
-            <ion-label translate>{{faction}}</ion-label>
+            <ion-label translate>{{faction.name}}</ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -98,6 +115,14 @@
       <ion-item-divider>
         <ion-label translate>bonus-cards</ion-label>
       </ion-item-divider>
+      <ion-row>
+        <ion-col *ngFor="let bonusCard of pickedBonusCards">
+          <ion-item>
+            <ion-icon name="ribbon-outline"></ion-icon>
+            <ion-label translate>{{bonusCard.description}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
     </ion-item-group>
 
     <ion-item-group>
