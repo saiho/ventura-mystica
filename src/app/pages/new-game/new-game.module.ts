@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { NewGamePageRoutingModule } from './new-game-routing.module';
 import { NewGamePage } from './new-game.page';
 

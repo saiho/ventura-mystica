@@ -2,8 +2,8 @@ import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import * as _ from 'lodash';
 import { BonusCard, BONUS_CARDS_ALL } from 'src/app/model/bonus-card';
+import { Faction, FACTIONS_ALL } from 'src/app/model/faction';
 import { BASIC_PROFILE, PREDEFINED_PROFILES, Profile } from 'src/app/model/profile';
-import { Faction, FACTIONS_ALL } from '../../model/faction';
 
 @Component({
   selector: 'app-new-game',
