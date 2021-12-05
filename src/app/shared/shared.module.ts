@@ -3,11 +3,13 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
+import { DateIntPipe } from '../pipes/date-int.pipe';
 import { InputBonusCardsValidatorDirective } from './input-bonus-cards-validator.directive';
 import { InputFactionsValidatorDirective } from './input-factions-validator.directive';
 
 @NgModule({
   declarations: [
+    DateIntPipe,
     InputFactionsValidatorDirective,
     InputBonusCardsValidatorDirective
   ],
@@ -22,6 +24,7 @@ import { InputFactionsValidatorDirective } from './input-factions-validator.dire
     FormsModule,
     TranslateModule,
     IonicModule,
+    DateIntPipe,
     InputFactionsValidatorDirective,
     InputBonusCardsValidatorDirective
   ]

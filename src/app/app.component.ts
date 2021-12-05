@@ -9,6 +9,7 @@ export class AppComponent {
   public appPages = [
     { title: 'New game', url: '/new-game', icon: 'color-wand' },
     { title: 'Settings', url: '/settings', icon: 'settings' },
+    { title: 'About', url: '/about', icon: 'information-circle' }
   ];
   constructor() { }
 }

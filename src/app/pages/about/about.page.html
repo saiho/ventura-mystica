@@ -1,0 +1,25 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title translate>about</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" translate>about</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-text id="about-description">
+    <p translate>about-description</p>
+  </ion-text>
+  <ion-text id="version-details">
+    <p>
+      <strong translate>version</strong> {{ buildInfo.version }}<br>
+      <strong translate>build-date</strong> {{ buildInfo.buildDate | dateint }}
+    </p>
+  </ion-text>
+</ion-content>
