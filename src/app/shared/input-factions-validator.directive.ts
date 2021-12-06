@@ -15,6 +15,7 @@ export class InputFactionsValidatorDirective implements Validator {
 
   validate(control: AbstractControl): ValidationErrors {
     const factions = control.value as Faction[];
+    if (!factions) { return null; }
     const maxNumFactions = _.uniqBy(factions, 'terrain').length;
     return this.numPlayers > maxNumFactions ? { invalidInputFactions: true } : null;
   }

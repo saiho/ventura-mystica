@@ -14,6 +14,7 @@ export class InputBonusCardsValidatorDirective implements Validator {
 
   validate(control: AbstractControl): ValidationErrors {
     const bonusCards = control.value as BonusCard[];
+    if (!bonusCards) { return null; }
     return this.numPlayers + 3 > bonusCards.length ? { invalidInputBonusCards: true } : null;
   }
 
