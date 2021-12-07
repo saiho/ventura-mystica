@@ -10,8 +10,8 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-prod": "ng lint && ng build --configuration=production",
-    "heroku-postbuild": "ng lint && ng build --configuration=production",
+    "build-prod": "ng lint && ng build --configuration=production && node scripts/add-build-info.js",
+    "heroku-postbuild": "npm run build-prod",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
@@ -74,6 +74,7 @@
     "karma-jasmine": "~4.0.1",
     "karma-jasmine-html-reporter": "^1.7.0",
     "protractor": "~7.0.0",
+    "replace-in-file": "^6.3.2",
     "ts-node": "~10.4.0",
     "typescript": "~4.4.4"
   }

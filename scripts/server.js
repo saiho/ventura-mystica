@@ -1,7 +1,7 @@
-var express = require('express'),
+const express = require('express');
 app = express();
 
-var ROOT_DIR = 'www'
+const ROOT_DIR = 'www';
 app.use(express.static(ROOT_DIR));
 
 // Send the index.html for other files to support Angular routing
