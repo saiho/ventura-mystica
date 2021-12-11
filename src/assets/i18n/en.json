@@ -56,9 +56,10 @@
   "predefined-profile": {
     "basic": "Basic game set, without extensions (Official)",
     "fire-ice": "Fire & Ice (Official)",
+    "fire-ice-and-mini-expansion": "Fire & Ice + Mini expansion (Official)",
     "power-coming": "Power is coming, with basic game set",
-    "fire-ice-and-power-coming": "Fire & Ice + Power is coming",
-    "all-official": "Fire & Ice + Merchants of the Seas + Mini expansion (Official)",
+    "fire-ice-and-mini-expansion-and-power-coming": "Fire & Ice  + Mini expansion + Power is coming",
+    "all-official": "Fire & Ice + Mini expansion + Merchants of the Seas (Official)",
     "all-official-and-unofficial": "All official and unofficial expansions"
   },
   "bonus-card": {
@@ -75,5 +76,38 @@
     "points-trade-and-ship": "1 point for each trade and 1 ship",
     "points-ships-coind-and-worker": "3 points for each ship, 1 coin and 1 worker",
     "move-ships-and-ship": "Move ships and and 1 ship"
+  },
+  "action-phase-scoring": {
+    "dwelling": "2 victory points when building a dwelling.",
+    "trading-house": "3 victory points when building a trading house.",
+    "level-3-building": "5 victory points when building the stronghold, sanctuary or shipyard.",
+    "spade": "2 victory points when using spades.",
+    "town": "2 victory points when founding a town.",
+    "temple": "4 victory points when building a temple.",
+    "trade": "2 victory points when resolving a trade.",
+    "any-track-upgrade": "2 victory points when advancing on the Shipping or Exchange tracks."
+  },
+  "reward-type": {
+    "priest": "gain {{count}} priest.",
+    "power": "gain {{count}} power.",
+    "coin": "gain {{count}} coins.",
+    "worker": "gain {{count}} worker.",
+    "spade": "gain {{count}} spade.",
+    "ship": "gain {{count}} ship.",
+    "shipping-upgrade": "advance on the Shipping track."
+  },
+  "reward-condition": {
+    "cultFire": "for each {{count}} spaces in the cult for fire",
+    "cultWater": "for each {{count}} spaces in the cult for fire",
+    "cultEarth": "for each {{count}} spaces in the cult for fire",
+    "cultAir": "for each {{count}} spaces in the cult for fire",
+    "priest": "for each priest placed in any cult"
+  },
+  "final-scoring-tile": {
+    "greatest-distance": "Greatest distance",
+    "distance-stronghold-sanctuary": "Distance between Stronghold and Sanctuary",
+    "outpost": "Number of structures in the border",
+    "settlements:": "Number of settlements",
+    "trade-markers": "Most trade markers"
   }
 }
