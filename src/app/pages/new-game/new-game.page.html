@@ -14,20 +14,19 @@
     </ion-toolbar>
   </ion-header>
 
-  <form #form="ngForm">
-    <ion-list>
-      <ion-item>
-        <ion-label translate>profile</ion-label>
-        <ion-select name="profile" [ngModel]="profile" (ngModelChange)="onProfileModelChange($event)"
-          [compareWith]="sameProfile"
-          [selectedText]="profile.predefined ? (profile.name | translate) : profile.name">
-          <ion-select-option *ngFor="let prof of allProfiles" [value]="prof">
-            {{prof.predefined ? (prof.name | translate) : prof.name}}
-          </ion-select-option>
-        </ion-select>
-      </ion-item>
+  <ion-list>
+    <ion-item>
+      <ion-label translate>profile</ion-label>
+      <ion-select [(ngModel)]="baseProfile" (ionChange)="onProfileChange()"
+        [selectedText]="baseProfile.predefined ? (baseProfile.name | translate) : baseProfile.name">
+        <ion-select-option *ngFor="let profile of allProfiles" [value]="profile">
+          {{profile.predefined ? (profile.name | translate) : profile.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
 
-      <ion-radio-group name="numPlayers" [(ngModel)]="profile.numPlayers" (ionChange)="onNumPlayersChange()">
+    <form #form="ngForm">
+      <ion-radio-group name="numPlayers" [(ngModel)]="numPlayers" (ionChange)="onNumPlayersChange()">
         <ion-item lines="none" class="item-label-stacked">
           <ion-label translate>number-of-players</ion-label>
           <ion-row>
@@ -48,9 +47,9 @@
             <ion-note class="ion-text-wrap" translate>factions-note</ion-note>
           </p>
         </ion-label>
-        <ion-select #factionsSelect="ngModel" name="factions" [(ngModel)]="profile.factions" (ionChange)="onFactionsChange()"
-          [selectedText]="'factions-selected' | translate:({ num: profile.factions.length })" multiple="true"
-          appInputFactionsValidator [numPlayers]="profile.numPlayers">
+        <ion-select #factionsSelect="ngModel" name="factions" [(ngModel)]="factions" (ionChange)="onFactionsChange()"
+          [selectedText]="'factions-selected' | translate:({ num: factions.length })" multiple="true"
+          appInputFactionsValidator [numPlayers]="numPlayers">
           <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>{{faction.name}}
           </ion-select-option>
         </ion-select>
@@ -64,15 +63,14 @@
         <ion-label>
           <ion-text translate>number-of-factions</ion-text>
           <p>
-            <ion-note class="ion-text-wrap" translate [translateParams]="{ num: profile.numFactions }">
+            <ion-note class="ion-text-wrap" translate [translateParams]="{ num: numFactions }">
               number-of-factions-note
             </ion-note>
           </p>
         </ion-label>
-        <ion-range name="numFactions" [(ngModel)]="profile.numFactions" pin="true" snaps="true" ticks="true"
-          [min]="profile.numPlayers"
-          [max]="maxNumFactions <= profile.numPlayers ? profile.numPlayers + 1 : maxNumFactions"
-          [disabled]="maxNumFactions <= profile.numPlayers">
+        <ion-range name="numFactions" [(ngModel)]="numFactions" pin="true" snaps="true" ticks="true" [min]="numPlayers"
+          [max]="maxNumFactions <= numPlayers ? numPlayers + 1 : maxNumFactions"
+          [disabled]="maxNumFactions <= numPlayers">
         </ion-range>
       </ion-item>
 
@@ -83,10 +81,11 @@
             <ion-note class="ion-text-wrap" translate>bonus-cards-note</ion-note>
           </p>
         </ion-label>
-        <ion-select #bonusCardsSelect="ngModel" name="bonusCards" [(ngModel)]="profile.bonusCards"
-          [selectedText]="'bonus-cards-selected' | translate:({ num: profile.bonusCards.length })" multiple="true"
-          appInputBonusCardsValidator [numPlayers]="profile.numPlayers">
-          <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>{{bonusCard.description}}
+        <ion-select #bonusCardsSelect="ngModel" name="bonusCards" [(ngModel)]="bonusCards"
+          [selectedText]="'bonus-cards-selected' | translate:({ num: bonusCards.length })" multiple="true"
+          appInputBonusCardsValidator [numPlayers]="numPlayers">
+          <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>
+            {{bonusCard.description}}
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -96,13 +95,57 @@
       </div>
 
       <ion-item>
-        <ion-label translate>extra-final-scoring-tile</ion-label>
-        <ion-checkbox [(ngModel)]="profile.extraFinalScoringTile" name="extraFinalScoringTile"></ion-checkbox>
+        <ion-label>
+          <ion-text translate>scoring-tiles</ion-text>
+          <p>
+            <ion-note class="ion-text-wrap" translate>scoring-tiles-note</ion-note>
+          </p>
+        </ion-label>
+        <ion-select #scoringTilesSelect="ngModel" name="scoringTiles" [(ngModel)]="scoringTiles"
+          [selectedText]="'scoring-tiles-selected' | translate:({ num: scoringTiles.length })" multiple="true"
+          appInputScoringTilesValidator>
+          <ion-select-option *ngFor="let scoringTile of allScoringTiles" [value]="scoringTile">
+            <div>
+              <p>
+                <ion-text><strong translate>action-phase-scoring</strong></ion-text>
+                <ion-text translate>{{scoringTile.actionPhaseScoring}}</ion-text>
+              </p>
+              <p>
+                <ion-text translate><strong>end-round-reward</strong></ion-text>
+                <ion-text translate [translateParams]="{ count: scoringTile.endRoundRewardConditionCount}">
+                  {{scoringTile.endRoundRewardCondition}}</ion-text>
+                <ion-text translate [translateParams]="{ count: scoringTile.endRoundRewardCount}">
+                  {{scoringTile.endRoundReward}}</ion-text>
+              </p>
+            </div>
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="ion-padding-horizontal ion-padding-bottom">
+        <ion-text *ngIf="scoringTilesSelect.errors?.invalidInputScoringTiles" color="danger" translate>
+          scoring-tiles-invalid
+        </ion-text>
+      </div>
+
+      <ion-item>
+        <ion-label>
+          <ion-text translate>extra-final-scoring-tiles</ion-text>
+          <p>
+            <ion-note class="ion-text-wrap" translate>extra-final-scoring-tiles-note</ion-note>
+          </p>
+        </ion-label>
+        <ion-select name="extraFinalScoringTiles" [(ngModel)]="extraFinalScoringTiles"
+          [selectedText]="'extra-final-scoring-tiles-selected' | translate:({ num: extraFinalScoringTiles.length })"
+          multiple="true">
+          <ion-select-option *ngFor="let extraFinalScoringTile of allExtraFinalScoringTiles"
+            [value]="extraFinalScoringTile" translate>{{extraFinalScoringTile.name}}
+          </ion-select-option>
+        </ion-select>
       </ion-item>
 
       <ion-button (click)="onClickGenerate()" [disabled]="!form.valid" translate>generate</ion-button>
-    </ion-list>
-  </form>
+    </form>
+  </ion-list>
 
   <ion-list *ngIf="generated">
     <ion-item-group>

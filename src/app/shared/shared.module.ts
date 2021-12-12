@@ -6,12 +6,14 @@ import { TranslateModule } from '@ngx-translate/core';
 import { DateIntPipe } from '../pipes/date-int.pipe';
 import { InputBonusCardsValidatorDirective } from './input-bonus-cards-validator.directive';
 import { InputFactionsValidatorDirective } from './input-factions-validator.directive';
+import { InputScoringTilesValidatorDirective } from './input-scoring-tiles-validator.directive';
 
 @NgModule({
   declarations: [
     DateIntPipe,
     InputFactionsValidatorDirective,
-    InputBonusCardsValidatorDirective
+    InputBonusCardsValidatorDirective,
+    InputScoringTilesValidatorDirective
   ],
   imports: [
     CommonModule,
@@ -26,7 +28,8 @@ import { InputFactionsValidatorDirective } from './input-factions-validator.dire
     IonicModule,
     DateIntPipe,
     InputFactionsValidatorDirective,
-    InputBonusCardsValidatorDirective
+    InputBonusCardsValidatorDirective,
+    InputScoringTilesValidatorDirective
   ]
 })
 export class SharedModule { }

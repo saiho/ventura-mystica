@@ -9,9 +9,8 @@ import { Faction } from '../model/faction';
 })
 export class InputFactionsValidatorDirective implements Validator {
 
-  @Input() numPlayers: number;
-
-  constructor() { }
+  @Input()
+  numPlayers: number;
 
   validate(control: AbstractControl): ValidationErrors {
     const factions = control.value as Faction[];

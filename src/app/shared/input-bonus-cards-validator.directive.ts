@@ -8,9 +8,8 @@ import { BonusCard } from '../model/bonus-card';
 })
 export class InputBonusCardsValidatorDirective implements Validator {
 
-  @Input() numPlayers: number;
-
-  constructor() { }
+  @Input()
+  numPlayers: number;
 
   validate(control: AbstractControl): ValidationErrors {
     const bonusCards = control.value as BonusCard[];
