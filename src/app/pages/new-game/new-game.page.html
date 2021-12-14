@@ -16,9 +16,11 @@
 
   <ion-list>
     <ion-item>
-      <ion-label translate>profile</ion-label>
-      <ion-select [(ngModel)]="baseProfile" (ionChange)="onProfileChange()"
-        [selectedText]="baseProfile.predefined ? (baseProfile.name | translate) : baseProfile.name">
+      <div>
+        <ion-label translate>profile</ion-label>
+        <ion-note>{{baseProfile.predefined ? (baseProfile.name | translate) : baseProfile.name}}</ion-note>
+      </div>
+      <ion-select [(ngModel)]="baseProfile" (ionChange)="onProfileChange()" slot="end" selectedText="&nbsp;">
         <ion-select-option *ngFor="let profile of allProfiles" [value]="profile">
           {{profile.predefined ? (profile.name | translate) : profile.name}}
         </ion-select-option>
@@ -27,7 +29,7 @@
 
     <form #form="ngForm">
       <ion-radio-group name="numPlayers" [(ngModel)]="numPlayers" (ionChange)="onNumPlayersChange()">
-        <ion-item lines="none" class="item-label-stacked">
+        <ion-item lines="none">
           <ion-label translate>number-of-players</ion-label>
           <ion-row>
             <ion-col *ngFor="let num of [2, 3, 4, 5]">
@@ -41,16 +43,15 @@
       </ion-radio-group>
 
       <ion-item>
-        <ion-label>
-          <ion-text translate>factions</ion-text>
-          <p>
-            <ion-note class="ion-text-wrap" translate>factions-note</ion-note>
-          </p>
-        </ion-label>
-        <ion-select #factionsSelect="ngModel" name="factions" [(ngModel)]="factions" (ionChange)="onFactionsChange()"
-          [selectedText]="'factions-selected' | translate:({ num: factions.length })" multiple="true"
-          appInputFactionsValidator [numPlayers]="numPlayers">
-          <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>{{faction.name}}
+        <div>
+          <ion-label translate>factions</ion-label>
+          <ion-note translate [translateParams]="{ num: factions.length }">factions-description</ion-note>
+        </div>
+        <ion-select name="factions" [(ngModel)]="factions" (ionChange)="onFactionsChange()" slot="end"
+          selectedText="&nbsp;" multiple="true" appInputFactionsValidator [numPlayers]="numPlayers"
+          #factionsSelect="ngModel">
+          <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>
+            {{faction.name}}
           </ion-select-option>
         </ion-select>
       </ion-item>
@@ -60,14 +61,10 @@
       </div>
 
       <ion-item class="item-label-stacked">
-        <ion-label>
-          <ion-text translate>number-of-factions</ion-text>
-          <p>
-            <ion-note class="ion-text-wrap" translate [translateParams]="{ num: numFactions }">
-              number-of-factions-note
-            </ion-note>
-          </p>
-        </ion-label>
+        <div>
+          <ion-label translate>number-of-factions</ion-label>
+          <ion-note translate [translateParams]="{ num: numFactions }">number-of-factions-description</ion-note>
+        </div>
         <ion-range name="numFactions" [(ngModel)]="numFactions" pin="true" snaps="true" ticks="true" [min]="numPlayers"
           [max]="maxNumFactions <= numPlayers ? numPlayers + 1 : maxNumFactions"
           [disabled]="maxNumFactions <= numPlayers">
@@ -75,35 +72,30 @@
       </ion-item>
 
       <ion-item>
-        <ion-label>
-          <ion-text translate>bonus-cards</ion-text>
-          <p>
-            <ion-note class="ion-text-wrap" translate>bonus-cards-note</ion-note>
-          </p>
-        </ion-label>
-        <ion-select #bonusCardsSelect="ngModel" name="bonusCards" [(ngModel)]="bonusCards"
-          [selectedText]="'bonus-cards-selected' | translate:({ num: bonusCards.length })" multiple="true"
-          appInputBonusCardsValidator [numPlayers]="numPlayers">
+        <div>
+          <ion-label translate>bonus-cards</ion-label>
+          <ion-note translate [translateParams]="{ num: bonusCards.length }">bonus-cards-description</ion-note>
+        </div>
+        <ion-select name="bonusCards" [(ngModel)]="bonusCards" slot="end" selectedText="&nbsp;" multiple="true"
+          appInputBonusCardsValidator [numPlayers]="numPlayers" #bonusCardsSelect="ngModel">
           <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>
             {{bonusCard.description}}
           </ion-select-option>
         </ion-select>
       </ion-item>
       <div class="ion-padding-horizontal ion-padding-bottom">
-        <ion-text *ngIf="bonusCardsSelect.errors?.invalidInputBonusCards" color="danger" translate>bonus-cards-invalid
+        <ion-text *ngIf="bonusCardsSelect.errors?.invalidInputBonusCards" color="danger" translate>
+          bonus-cards-invalid
         </ion-text>
       </div>
 
       <ion-item>
-        <ion-label>
-          <ion-text translate>scoring-tiles</ion-text>
-          <p>
-            <ion-note class="ion-text-wrap" translate>scoring-tiles-note</ion-note>
-          </p>
-        </ion-label>
-        <ion-select #scoringTilesSelect="ngModel" name="scoringTiles" [(ngModel)]="scoringTiles"
-          [selectedText]="'scoring-tiles-selected' | translate:({ num: scoringTiles.length })" multiple="true"
-          appInputScoringTilesValidator>
+        <div>
+          <ion-label translate>scoring-tiles</ion-label>
+          <ion-note translate [translateParams]="{ num: scoringTiles.length }">scoring-tiles-description</ion-note>
+        </div>
+        <ion-select name="scoringTiles" [(ngModel)]="scoringTiles" slot="end" selectedText="&nbsp;" multiple="true"
+          appInputScoringTilesValidator #scoringTilesSelect="ngModel">
           <ion-select-option *ngFor="let scoringTile of allScoringTiles" [value]="scoringTile">
             <div>
               <p>
@@ -128,14 +120,13 @@
       </div>
 
       <ion-item>
-        <ion-label>
-          <ion-text translate>extra-final-scoring-tiles</ion-text>
-          <p>
-            <ion-note class="ion-text-wrap" translate>extra-final-scoring-tiles-note</ion-note>
-          </p>
-        </ion-label>
-        <ion-select name="extraFinalScoringTiles" [(ngModel)]="extraFinalScoringTiles"
-          [selectedText]="'extra-final-scoring-tiles-selected' | translate:({ num: extraFinalScoringTiles.length })"
+        <div>
+          <ion-label translate>extra-final-scoring-tiles</ion-label>
+          <ion-note translate [translateParams]="{ num: extraFinalScoringTiles.length }">
+            extra-final-scoring-tiles-description
+          </ion-note>
+        </div>
+        <ion-select name="extraFinalScoringTiles" [(ngModel)]="extraFinalScoringTiles" slot="end" selectedText="&nbsp;"
           multiple="true">
           <ion-select-option *ngFor="let extraFinalScoringTile of allExtraFinalScoringTiles"
             [value]="extraFinalScoringTile" translate>{{extraFinalScoringTile.name}}
