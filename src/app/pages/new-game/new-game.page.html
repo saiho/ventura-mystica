@@ -48,7 +48,7 @@
           <ion-note translate [translateParams]="{ num: factions.length }">factions-description</ion-note>
         </div>
         <ion-select name="factions" [(ngModel)]="factions" (ionChange)="onFactionsChange()" slot="end"
-          selectedText="&nbsp;" multiple="true" appInputFactionsValidator [numPlayers]="numPlayers"
+          selectedText="&nbsp;" multiple="true" appFactionsValidator [numPlayers]="numPlayers"
           #factionsSelect="ngModel">
           <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>
             {{faction.name}}
@@ -56,7 +56,7 @@
         </ion-select>
       </ion-item>
       <div class="ion-padding-horizontal ion-padding-bottom">
-        <ion-text *ngIf="factionsSelect.errors?.invalidInputFactions" color="danger" translate>factions-invalid
+        <ion-text *ngIf="factionsSelect.errors?.invalidFactions" color="danger" translate>factions-invalid
         </ion-text>
       </div>
 
@@ -77,14 +77,14 @@
           <ion-note translate [translateParams]="{ num: bonusCards.length }">bonus-cards-description</ion-note>
         </div>
         <ion-select name="bonusCards" [(ngModel)]="bonusCards" slot="end" selectedText="&nbsp;" multiple="true"
-          appInputBonusCardsValidator [numPlayers]="numPlayers" #bonusCardsSelect="ngModel">
+          appBonusCardsValidator [numPlayers]="numPlayers" #bonusCardsSelect="ngModel">
           <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>
             {{bonusCard.description}}
           </ion-select-option>
         </ion-select>
       </ion-item>
       <div class="ion-padding-horizontal ion-padding-bottom">
-        <ion-text *ngIf="bonusCardsSelect.errors?.invalidInputBonusCards" color="danger" translate>
+        <ion-text *ngIf="bonusCardsSelect.errors?.invalidBonusCards" color="danger" translate>
           bonus-cards-invalid
         </ion-text>
       </div>
@@ -95,7 +95,7 @@
           <ion-note translate [translateParams]="{ num: scoringTiles.length }">scoring-tiles-description</ion-note>
         </div>
         <ion-select name="scoringTiles" [(ngModel)]="scoringTiles" slot="end" selectedText="&nbsp;" multiple="true"
-          appInputScoringTilesValidator #scoringTilesSelect="ngModel">
+          appScoringTilesValidator #scoringTilesSelect="ngModel">
           <ion-select-option *ngFor="let scoringTile of allScoringTiles" [value]="scoringTile">
             <div>
               <p>
@@ -114,7 +114,7 @@
         </ion-select>
       </ion-item>
       <div class="ion-padding-horizontal ion-padding-bottom">
-        <ion-text *ngIf="scoringTilesSelect.errors?.invalidInputScoringTiles" color="danger" translate>
+        <ion-text *ngIf="scoringTilesSelect.errors?.invalidScoringTiles" color="danger" translate>
           scoring-tiles-invalid
         </ion-text>
       </div>

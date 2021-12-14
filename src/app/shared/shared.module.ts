@@ -4,16 +4,16 @@ import { FormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { DateIntPipe } from '../pipes/date-int.pipe';
-import { InputBonusCardsValidatorDirective } from './input-bonus-cards-validator.directive';
-import { InputFactionsValidatorDirective } from './input-factions-validator.directive';
-import { InputScoringTilesValidatorDirective } from './input-scoring-tiles-validator.directive';
+import { BonusCardsValidatorDirective } from './validations/input-bonus-cards-validator.directive';
+import { FactionsValidatorDirective } from './validations/input-factions-validator.directive';
+import { ScoringTilesValidatorDirective } from './validations/input-scoring-tiles-validator.directive';
 
 @NgModule({
   declarations: [
     DateIntPipe,
-    InputFactionsValidatorDirective,
-    InputBonusCardsValidatorDirective,
-    InputScoringTilesValidatorDirective
+    FactionsValidatorDirective,
+    BonusCardsValidatorDirective,
+    ScoringTilesValidatorDirective
   ],
   imports: [
     CommonModule,
@@ -27,9 +27,9 @@ import { InputScoringTilesValidatorDirective } from './input-scoring-tiles-valid
     TranslateModule,
     IonicModule,
     DateIntPipe,
-    InputFactionsValidatorDirective,
-    InputBonusCardsValidatorDirective,
-    InputScoringTilesValidatorDirective
+    FactionsValidatorDirective,
+    BonusCardsValidatorDirective,
+    ScoringTilesValidatorDirective
   ]
 })
 export class SharedModule { }

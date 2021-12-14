@@ -1,13 +1,13 @@
 import { Directive, Input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 import * as _ from 'lodash';
-import { Faction } from '../model/faction';
+import { Faction } from '../../model/faction';
 
 @Directive({
-  selector: '[appInputFactionsValidator]',
-  providers: [{ provide: NG_VALIDATORS, useExisting: InputFactionsValidatorDirective, multi: true }]
+  selector: '[appFactionsValidator]',
+  providers: [{ provide: NG_VALIDATORS, useExisting: FactionsValidatorDirective, multi: true }]
 })
-export class InputFactionsValidatorDirective implements Validator {
+export class FactionsValidatorDirective implements Validator {
 
   @Input()
   numPlayers: number;
@@ -16,7 +16,7 @@ export class InputFactionsValidatorDirective implements Validator {
     const factions = control.value as Faction[];
     if (!factions) { return null; }
     const maxNumFactions = _.uniqBy(factions, 'terrain').length;
-    return this.numPlayers > maxNumFactions ? { invalidInputFactions: true } : null;
+    return this.numPlayers > maxNumFactions ? { invalidFactions: true } : null;
   }
 
 }
