@@ -24,3 +24,41 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+
+/* Custom select dialogs */
+
+// Wider dialog
+.wide-select .alert-wrapper {
+  --max-width: 90%;
+  --width: 600px;
+}
+
+.wide-select .alert-checkbox-button,
+.wide-select .alert-radio-button {
+  height: auto; // Allow automatic height for wrapping long lines
+  contain: layout paint; // Default was strict (= size + layout + paint)
+}
+
+.wide-select .alert-checkbox-label,
+.wide-select .alert-radio-label {
+  white-space: normal; // wrap text
+}
+
+// Allow multiple inputs in the same row (for example, for picture selection in a grid)
+.grid-select .alert-wrapper {
+  --max-width: 90%;
+  --width: 600px;
+}
+
+.grid-select .alert-checkbox-group,
+.grid-select .alert-radio-group {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.grid-select .alert-checkbox-button,
+.grid-select .alert-radio-button {
+  height: auto;
+  contain: none;
+}
