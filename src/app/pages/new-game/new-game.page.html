@@ -31,15 +31,13 @@
     <form #form="ngForm">
       <ion-radio-group name="numPlayers" [(ngModel)]="numPlayers" (ionChange)="onNumPlayersChange()">
         <ion-item lines="none">
-          <ion-label translate>number-of-players</ion-label>
-          <ion-row>
-            <ion-col *ngFor="let num of [2, 3, 4, 5]">
-              <ion-item>
-                <ion-label>{{num}}</ion-label>
-                <ion-radio slot="start" [value]="num"></ion-radio>
-              </ion-item>
-            </ion-col>
-          </ion-row>
+          <ion-label style="min-width: 140px;" translate>number-of-players</ion-label>
+          <div class="single-line-radio">
+            <ion-item *ngFor="let num of [2, 3, 4, 5]">
+              <ion-label>{{num}}</ion-label>
+              <ion-radio slot="start" [value]="num"></ion-radio>
+            </ion-item>
+          </div>
         </ion-item>
       </ion-radio-group>
 
@@ -97,8 +95,7 @@
           <ion-note translate [translateParams]="{ num: scoringTiles.length }">scoring-tiles-description</ion-note>
         </div>
         <ion-select name="scoringTiles" [(ngModel)]="scoringTiles" slot="end" selectedText="&nbsp;" multiple="true"
-          appScoringTilesValidator #scoringTilesSelect="ngModel"
-          [interfaceOptions]="{ cssClass: 'grid-select' }">
+          appScoringTilesValidator #scoringTilesSelect="ngModel" [interfaceOptions]="{ cssClass: 'grid-select' }">
           <ion-select-option *ngFor="let scoringTile of allScoringTiles" [value]="scoringTile">
             <div>
               <p>

@@ -9,3 +9,8 @@ ion-range.range-has-pin {
 ion-item.item-label-stacked ion-label {
   flex: auto;
 }
+
+.single-line-radio {
+  display: flex;
+  flex-wrap: wrap;
+}
