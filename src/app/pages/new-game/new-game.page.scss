@@ -2,15 +2,22 @@ ion-menu-button {
   color: var(--ion-color-primary);
 }
 
+// Style of number of players
+.single-line-radio {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+// Style of number of factions
+ion-item.item-label-stacked ion-label {
+  flex: auto;
+}
 ion-range.range-has-pin {
   padding-top: 0px;
 }
 
-ion-item.item-label-stacked ion-label {
-  flex: auto;
-}
-
-.single-line-radio {
-  display: flex;
-  flex-wrap: wrap;
+// Do not show selected item in ion-select
+ion-item ion-select::part(text),
+ion-item ion-select::part(placeholder) {
+  display: none;
 }

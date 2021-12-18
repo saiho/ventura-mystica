@@ -1,4 +1,4 @@
-<ion-header [translucent]="true">
+<ion-header translucent>
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content fullscreen>
   <ion-header collapse="condense">
     <ion-toolbar>
       <ion-title size="large" translate>new-game</ion-title>
@@ -20,7 +20,7 @@
         <ion-label translate>profile</ion-label>
         <ion-note>{{baseProfile.predefined ? (baseProfile.name | translate) : baseProfile.name}}</ion-note>
       </div>
-      <ion-select [(ngModel)]="baseProfile" (ionChange)="onProfileChange()" slot="end" selectedText="&nbsp;"
+      <ion-select [(ngModel)]="baseProfile" (ionChange)="onProfileChange()" slot="end"
         [interfaceOptions]="{ cssClass: 'wide-select' }">
         <ion-select-option *ngFor="let profile of allProfiles" [value]="profile">
           {{profile.predefined ? (profile.name | translate) : profile.name}}
@@ -47,7 +47,7 @@
           <ion-note translate [translateParams]="{ num: factions.length }">factions-description</ion-note>
         </div>
         <ion-select name="factions" [(ngModel)]="factions" (ionChange)="onFactionsChange()" slot="end"
-          selectedText="&nbsp;" multiple="true" appFactionsValidator [numPlayers]="numPlayers"
+          multiple appFactionsValidator [numPlayers]="numPlayers"
           #factionsSelect="ngModel">
           <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>
             {{faction.name}}
@@ -64,7 +64,7 @@
           <ion-label translate>number-of-factions</ion-label>
           <ion-note translate [translateParams]="{ num: numFactions }">number-of-factions-description</ion-note>
         </div>
-        <ion-range name="numFactions" [(ngModel)]="numFactions" pin="true" snaps="true" ticks="true" [min]="numPlayers"
+        <ion-range name="numFactions" [(ngModel)]="numFactions" pin snaps ticks [min]="numPlayers"
           [max]="maxNumFactions <= numPlayers ? numPlayers + 1 : maxNumFactions"
           [disabled]="maxNumFactions <= numPlayers">
         </ion-range>
@@ -75,7 +75,7 @@
           <ion-label translate>bonus-cards</ion-label>
           <ion-note translate [translateParams]="{ num: bonusCards.length }">bonus-cards-description</ion-note>
         </div>
-        <ion-select name="bonusCards" [(ngModel)]="bonusCards" slot="end" selectedText="&nbsp;" multiple="true"
+        <ion-select name="bonusCards" [(ngModel)]="bonusCards" slot="end" multiple
           appBonusCardsValidator [numPlayers]="numPlayers" #bonusCardsSelect="ngModel"
           [interfaceOptions]="{ cssClass: 'grid-select' }">
           <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>
@@ -94,7 +94,7 @@
           <ion-label translate>scoring-tiles</ion-label>
           <ion-note translate [translateParams]="{ num: scoringTiles.length }">scoring-tiles-description</ion-note>
         </div>
-        <ion-select name="scoringTiles" [(ngModel)]="scoringTiles" slot="end" selectedText="&nbsp;" multiple="true"
+        <ion-select name="scoringTiles" [(ngModel)]="scoringTiles" slot="end" multiple
           appScoringTilesValidator #scoringTilesSelect="ngModel" [interfaceOptions]="{ cssClass: 'grid-select' }">
           <ion-select-option *ngFor="let scoringTile of allScoringTiles" [value]="scoringTile">
             <div>
@@ -126,8 +126,8 @@
             extra-final-scoring-tiles-description
           </ion-note>
         </div>
-        <ion-select name="extraFinalScoringTiles" [(ngModel)]="extraFinalScoringTiles" slot="end" selectedText="&nbsp;"
-          multiple="true" [interfaceOptions]="{ cssClass: 'grid-select' }">
+        <ion-select name="extraFinalScoringTiles" [(ngModel)]="extraFinalScoringTiles" slot="end"
+          multiple [interfaceOptions]="{ cssClass: 'grid-select' }">
           <ion-select-option *ngFor="let extraFinalScoringTile of allExtraFinalScoringTiles"
             [value]="extraFinalScoringTile" translate>{{extraFinalScoringTile.name}}
           </ion-select-option>
