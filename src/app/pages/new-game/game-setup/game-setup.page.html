@@ -1,0 +1,165 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title translate>new-game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" translate>new-game</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item>
+      <div>
+        <ion-label translate>profile</ion-label>
+        <ion-note>{{baseProfile.predefined ? (baseProfile.name | translate) : baseProfile.name}}</ion-note>
+      </div>
+      <ion-select [(ngModel)]="baseProfile" (ionChange)="onProfileChange()" slot="end"
+        [interfaceOptions]="{ cssClass: 'wide-select' }">
+        <ion-select-option *ngFor="let profile of allProfiles" [value]="profile">
+          {{profile.predefined ? (profile.name | translate) : profile.name}}
+        </ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <form #form="ngForm">
+      <ion-radio-group name="numPlayers" [(ngModel)]="numPlayers" (ionChange)="onNumPlayersChange()">
+        <ion-item lines="none">
+          <ion-label style="min-width: 140px;" translate>number-of-players</ion-label>
+          <div class="single-line-radio">
+            <ion-item *ngFor="let num of [2, 3, 4, 5]">
+              <ion-label>{{num}}</ion-label>
+              <ion-radio slot="start" [value]="num"></ion-radio>
+            </ion-item>
+          </div>
+        </ion-item>
+      </ion-radio-group>
+
+      <ion-item>
+        <div>
+          <ion-label translate>factions</ion-label>
+          <ion-note translate [translateParams]="{ num: factions.length }">factions-description</ion-note>
+        </div>
+        <ion-select name="factions" [(ngModel)]="factions" (ionChange)="onFactionsChange()" slot="end" multiple
+          appFactionsValidator [numPlayers]="numPlayers" #factionsSelect="ngModel">
+          <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>
+            {{faction.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="ion-padding-horizontal ion-padding-bottom">
+        <ion-text *ngIf="factionsSelect.errors?.invalidFactions" color="danger" translate>factions-invalid
+        </ion-text>
+      </div>
+
+      <ion-item class="item-label-stacked">
+        <div>
+          <ion-label translate>number-of-factions</ion-label>
+          <ion-note translate [translateParams]="{ num: numFactions }">number-of-factions-description</ion-note>
+        </div>
+        <ion-range name="numFactions" [(ngModel)]="numFactions" pin snaps ticks [min]="numPlayers"
+          [max]="maxNumFactions <= numPlayers ? numPlayers + 1 : maxNumFactions"
+          [disabled]="maxNumFactions <= numPlayers">
+        </ion-range>
+      </ion-item>
+
+      <ion-item>
+        <div>
+          <ion-label translate>bonus-cards</ion-label>
+          <ion-note translate [translateParams]="{ num: bonusCards.length }">bonus-cards-description</ion-note>
+        </div>
+        <ion-select name="bonusCards" [(ngModel)]="bonusCards" slot="end" multiple appBonusCardsValidator
+          [numPlayers]="numPlayers" #bonusCardsSelect="ngModel" [interfaceOptions]="{ cssClass: 'grid-select' }">
+          <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>
+            {{bonusCard.description}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+      <div class="ion-padding-horizontal ion-padding-bottom">
+        <ion-text *ngIf="bonusCardsSelect.errors?.invalidBonusCards" color="danger" translate>
+          bonus-cards-invalid
+        </ion-text>
+      </div>
+
+      <ion-item routerLink="scoring-tiles" [state]="{ scoringTiles: scoringTiles }">
+        <div>
+          <ion-label translate>scoring-tiles</ion-label>
+          <ion-note translate [translateParams]="{ num: scoringTiles.length }">scoring-tiles-description</ion-note>
+        </div>
+        <input type="hidden" name="scoringTiles" [ngModel]="scoringTiles" appScoringTilesValidator
+          #scoringTilesSelect="ngModel">
+      </ion-item>
+      <div class="ion-padding-horizontal ion-padding-bottom">
+        <ion-text *ngIf="scoringTilesSelect.errors?.invalidScoringTiles" color="danger" translate>
+          scoring-tiles-invalid
+        </ion-text>
+      </div>
+
+      <ion-item>
+        <div>
+          <ion-label translate>extra-final-scoring-tiles</ion-label>
+          <ion-note translate [translateParams]="{ num: extraFinalScoringTiles.length }">
+            extra-final-scoring-tiles-description
+          </ion-note>
+        </div>
+        <ion-select name="extraFinalScoringTiles" [(ngModel)]="extraFinalScoringTiles" slot="end" multiple
+          [interfaceOptions]="{ cssClass: 'grid-select' }">
+          <ion-select-option *ngFor="let extraFinalScoringTile of allExtraFinalScoringTiles"
+            [value]="extraFinalScoringTile" translate>{{extraFinalScoringTile.name}}
+          </ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-button (click)="onClickGenerate()" [disabled]="!form.valid" translate>generate</ion-button>
+    </form>
+  </ion-list>
+
+  <ion-list *ngIf="generated">
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label translate>factions</ion-label>
+      </ion-item-divider>
+      <ion-row>
+        <ion-col *ngFor="let faction of pickedFactions">
+          <ion-item>
+            <ion-icon name="body-outline"></ion-icon>
+            <ion-label translate>{{faction.name}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label translate>bonus-cards</ion-label>
+      </ion-item-divider>
+      <ion-row>
+        <ion-col *ngFor="let bonusCard of pickedBonusCards">
+          <ion-item>
+            <ion-icon name="ribbon-outline"></ion-icon>
+            <ion-label translate>{{bonusCard.description}}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label translate>scoring-tiles</ion-label>
+      </ion-item-divider>
+    </ion-item-group>
+
+    <ion-item-group>
+      <ion-item-divider>
+        <ion-label translate>final-scoring-tiles</ion-label>
+      </ion-item-divider>
+    </ion-item-group>
+  </ion-list>
+
+</ion-content>

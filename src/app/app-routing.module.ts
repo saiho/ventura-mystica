@@ -9,11 +9,11 @@ const routes: Routes = [
   },
   {
     path: 'new-game',
-    loadChildren: () => import('./pages/new-game/new-game.module').then( m => m.NewGamePageModule)
+    loadChildren: () => import('./pages/new-game/new-game.module').then(m => m.NewGamePageModule)
   },
   {
     path: 'settings',
-    loadChildren: () => import('./pages/settings/settings.module').then( m => m.SettingsPageModule)
+    loadChildren: () => import('./pages/settings/settings.module').then(m => m.SettingsPageModule)
   },
   {
     path: 'about',
@@ -27,4 +27,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

@@ -1,7 +1,7 @@
 import { Terrain } from './terrain';
 
 export class Faction {
-  constructor(
+  public constructor(
     public readonly name: string,
     public readonly terrain: Terrain
   ) {

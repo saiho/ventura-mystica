@@ -40,19 +40,3 @@
 .wide-select .alert-radio-label {
   white-space: normal; // wrap text
 }
-
-// Show a grid of inputs in ion-select, for example, for selecting pictures
-.grid-select .alert-wrapper {
-  --max-width: 90%;
-  --width: 600px;
-}
-.grid-select .alert-checkbox-group,
-.grid-select .alert-radio-group {
-  display: flex;
-  flex-wrap: wrap;
-}
-.grid-select .alert-checkbox-button,
-.grid-select .alert-radio-button {
-  height: auto;
-  contain: none;
-}
