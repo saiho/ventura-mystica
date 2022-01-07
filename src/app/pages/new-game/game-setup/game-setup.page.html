@@ -92,8 +92,8 @@
           <ion-label translate>scoring-tiles</ion-label>
           <ion-note translate [translateParams]="{ num: scoringTiles.length }">scoring-tiles-description</ion-note>
         </div>
-        <input type="hidden" name="scoringTiles" [ngModel]="scoringTiles" appScoringTilesValidator
-          #scoringTilesSelect="ngModel">
+        <input type="hidden" name="scoringTiles" [(ngModel)]="scoringTiles" appScoringTilesValidator
+          [allowCityScoring1stRound]="true" #scoringTilesSelect="ngModel">
       </ion-item>
       <div class="ion-padding-horizontal ion-padding-bottom">
         <ion-text *ngIf="scoringTilesSelect.errors?.invalidScoringTiles" color="danger" translate>

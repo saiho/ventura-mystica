@@ -13,7 +13,7 @@ export class ScoringTilesPage implements OnInit {
   readonly allScoringTiles = SCORING_TILES_ALL;
 
   scoringTiles: ScoringTile[];
-  scoringTileSelected: boolean[];
+  scoringTilesChecked: boolean[];
 
   constructor(
     private router: Router,
@@ -23,18 +23,23 @@ export class ScoringTilesPage implements OnInit {
 
   ngOnInit() {
     this.scoringTiles = this.router.getCurrentNavigation().extras.state.scoringTiles;
-    this.scoringTileSelected = this.allScoringTiles.map(scoringTile => _.find(this.scoringTiles, scoringTile) != null);
+    this.scoringTilesChecked = this.allScoringTiles.map(scoringTile => _.find(this.scoringTiles, scoringTile) != null);
   }
 
   onClickOk() {
-    // Update the input (without creating a new array instance) including the selected scoring tiles
-    this.scoringTiles.length = 0;
-    this.scoringTileSelected.forEach((selected, i) => {
-      if (selected) {
-        this.scoringTiles.push(SCORING_TILES_ALL[i]);
+    const newScoringTiles: ScoringTile[] = [];
+    this.scoringTilesChecked.forEach((checked, i) => {
+      if (checked) {
+        newScoringTiles.push(SCORING_TILES_ALL[i]);
       }
     });
-    this.onClickCancel();
+
+    this.router.navigate(['..'], // Go to parent route
+      {
+        state: { scoringTiles: newScoringTiles }, // Pass new scoring tiles back
+        relativeTo: this.route,
+        replaceUrl: true // Prevent going forward in history after clicking ok/cancel by replacing the last history state
+      });
   }
 
   onClickCancel() {

@@ -96,7 +96,7 @@
   "reward-type.spade": "gain {{count}} spade.",
   "reward-type.worker": "gain {{count}} worker.",
   "scoring-tiles-description": "{{num}} scoring tiles to pick randomly from.",
-  "scoring-tiles-invalid": "At least 6 scoring tiles are required, and it has to be possible to get some combination in which three cults of the same element do not appear.",
+  "scoring-tiles-invalid": "At least 6 scoring tiles are required which could be combined in a way such that the same cult is not scored three times.",
   "scoring-tiles": "Scoring tiles",
   "settings": "Settings",
   "version": "Version:"
