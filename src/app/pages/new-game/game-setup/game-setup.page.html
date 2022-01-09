@@ -75,7 +75,7 @@
           <ion-note translate [translateParams]="{ num: bonusCards.length }">bonus-cards-description</ion-note>
         </div>
         <ion-select name="bonusCards" [(ngModel)]="bonusCards" slot="end" multiple appBonusCardsValidator
-          [numPlayers]="numPlayers" #bonusCardsSelect="ngModel" [interfaceOptions]="{ cssClass: 'grid-select' }">
+          [numPlayers]="numPlayers" #bonusCardsSelect="ngModel">
           <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>
             {{bonusCard.description}}
           </ion-select-option>
@@ -108,8 +108,7 @@
             extra-final-scoring-tiles-description
           </ion-note>
         </div>
-        <ion-select name="extraFinalScoringTiles" [(ngModel)]="extraFinalScoringTiles" slot="end" multiple
-          [interfaceOptions]="{ cssClass: 'grid-select' }">
+        <ion-select name="extraFinalScoringTiles" [(ngModel)]="extraFinalScoringTiles" slot="end" multiple>
           <ion-select-option *ngFor="let extraFinalScoringTile of allExtraFinalScoringTiles"
             [value]="extraFinalScoringTile" translate>{{extraFinalScoringTile.name}}
           </ion-select-option>
