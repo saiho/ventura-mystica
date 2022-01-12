@@ -1,20 +1,19 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
-import { NavigationEnd, Router } from '@angular/router';
 import * as _ from 'lodash';
-import { filter, Subscription } from 'rxjs';
 import { BonusCard, BONUS_CARDS_ALL } from 'src/app/model/bonus-card';
 import { ExtraFinalScoringTile, EXTRA_FINAL_SCORING_TILES_ALL } from 'src/app/model/extra-final-scoring-tile';
 import { Faction, FACTIONS_ALL } from 'src/app/model/faction';
 import { BASIC_PROFILE, PREDEFINED_PROFILES, Profile, ProfileDetails } from 'src/app/model/profile';
 import { ScoringTile } from 'src/app/model/scoring-tile';
+import { ScoringTilesRef } from '../scoring-tiles/scoring-tiles-ref';
 
 @Component({
   selector: 'app-game-setup',
   templateUrl: './game-setup.page.html',
   styleUrls: ['./game-setup.page.scss'],
 })
-export class GameSetupPage implements OnInit, OnDestroy, ProfileDetails {
+export class GameSetupPage implements OnInit, ProfileDetails {
 
   @ViewChild('factionsSelect')
   private factionsSelect: NgModel;
@@ -43,33 +42,17 @@ export class GameSetupPage implements OnInit, OnDestroy, ProfileDetails {
   pickedFactions: Faction[];
   pickedBonusCards: BonusCard[];
 
-  private routerUrl: string;
-  private routerEventsSubscription: Subscription;
-
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
-    private router: Router
+    private scoringTilesRef: ScoringTilesRef
   ) {
+    this.scoringTilesRef.setCallbacks(
+      () => this.scoringTiles,
+      value => { this.scoringTiles = value; });
   }
 
   ngOnInit() {
-    // Monitor events after page is loaded to get results from child pages
-    this.routerUrl = this.router.url;
-    this.routerEventsSubscription = this.router.events
-      .pipe(filter(event => event instanceof NavigationEnd && event.url === this.routerUrl))
-      .subscribe((event: NavigationEnd) => this.onNavigationEnd(event));
-
     this.onProfileChange();
-  }
-
-  ngOnDestroy(): void {
-    this.routerEventsSubscription.unsubscribe();
-  }
-
-  onNavigationEnd(event: NavigationEnd) {
-    if (this.router.getCurrentNavigation()?.extras?.state?.scoringTiles) {
-      this.scoringTiles = this.router.getCurrentNavigation().extras.state.scoringTiles;
-    }
   }
 
   onProfileChange() {

@@ -10,7 +10,7 @@ export class ScoringTilesGuard implements CanActivate {
   }
 
   canActivate() {
-    if (this.router.getCurrentNavigation()?.extras?.state?.scoringTiles instanceof Array) {
+    if (this.router.getCurrentNavigation()?.extras?.state?.scoringTilesGuard) {
       return true;
     }
     // Redirect to parent route if this page was loaded manually (with no extra state parameters)
