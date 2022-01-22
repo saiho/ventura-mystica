@@ -1,3 +1,5 @@
+import { SelectableItem } from '../shared/pages/grid-selection/grid-selection.page';
+
 export enum ActionPhaseScoring {
   dwelling = 'action-phase-scoring.dwelling',
   tradingHouse = 'action-phase-scoring.trading-house',
@@ -27,13 +29,23 @@ export enum EndRoundRewardRewardType {
   shippingUpgrade = 'reward-type.shipping-upgrade'
 };
 
-export class ScoringTile {
+export class ScoringTile implements SelectableItem {
   public constructor(
     public readonly actionPhaseScoring: ActionPhaseScoring,
     public readonly endRoundRewardCondition: EndRoundRewardCondition,
     public readonly endRoundRewardConditionCount: number,
     public readonly endRoundReward: EndRoundRewardRewardType,
     public readonly endRoundRewardCount: number = 1) {
+  }
+
+  get text(): string | null {
+    // Use custom template
+    return null;
+  }
+
+  get image(): string | null {
+    // Use custom template
+    return null;
   }
 }
 

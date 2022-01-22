@@ -1,1 +1,28 @@
-<ion-tabs></ion-tabs>
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title translate>new-game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ng-template #scoringTileTemplate let-item="item">
+  <ion-label>
+    <div>
+      <p>
+        <ion-text><strong translate>action-phase-scoring</strong></ion-text>
+        <ion-text translate>{{item.actionPhaseScoring}}</ion-text>
+      </p>
+      <p>
+        <ion-text><strong translate>end-round-reward</strong></ion-text>
+        <ion-text translate [translateParams]="{ count: item.endRoundRewardConditionCount }">
+          {{item.endRoundRewardCondition}}</ion-text>
+        <ion-text translate [translateParams]="{ count: item.endRoundRewardCount }">
+          {{item.endRoundReward}}</ion-text>
+      </p>
+    </div>
+  </ion-label>
+</ng-template>
+
+<ion-router-outlet></ion-router-outlet>

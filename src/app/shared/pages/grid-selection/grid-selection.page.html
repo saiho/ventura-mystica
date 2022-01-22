@@ -1,0 +1,23 @@
+<ion-content fullscreen>
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large" translate>{{title}}</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-list>
+    <ion-item *ngFor="let item of allItems; let i = index">
+      <ng-container *ngTemplateOutlet="itemTemplate; context: { item: item }"></ng-container>
+      <ng-container *ngIf="!itemTemplate">
+        <ion-text translate>{{item.text}}</ion-text>
+      </ng-container>
+      <ion-checkbox [(ngModel)]="listSelected[i]"></ion-checkbox>
+    </ion-item>
+  </ion-list>
+</ion-content>
+<ion-footer>
+  <ion-toolbar>
+    <ion-button (click)="onClickOk()" translate>ok</ion-button>
+    <ion-button (click)="onClickCancel()" translate>cancel</ion-button>
+  </ion-toolbar>
+</ion-footer>
