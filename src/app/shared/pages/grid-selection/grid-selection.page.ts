@@ -10,7 +10,6 @@ import * as _ from 'lodash';
 })
 export class GridSelectionPage implements OnInit {
 
-  title: string;
   allItems: SelectableItem[];
   listSelected: boolean[];
   itemTemplate: TemplateRef<SelectableItemTemplateContext<SelectableItem>>;
@@ -28,7 +27,6 @@ export class GridSelectionPage implements OnInit {
 
   ngOnInit() {
     this.route.data.subscribe((data: GridSelectionData<any, SelectableItem>) => {
-      this.title = this.title;
       this.bindComponent = this.injector.get(data.bindComponentType);
       this.allItems = data.allItems;
       const selectedItems = data.getSelectedItems(this.bindComponent);
@@ -70,7 +68,6 @@ export interface SelectableItemTemplateContext<T> {
 }
 
 export interface GridSelectionData<T, U extends SelectableItem> {
-  title: string;
   bindComponentType: Type<T>;
   allItems: U[];
 

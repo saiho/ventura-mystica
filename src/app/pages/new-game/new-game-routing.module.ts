@@ -22,7 +22,6 @@ const routes: Routes = [
         component: GridSelectionPage,
         canActivate: [GridSelectionGuard],
         data: {
-          title: 'scoring-tiles',
           bindComponentType: GameSetupService,
           allItems: SCORING_TILES_ALL,
           getSelectedItems: (component: GameSetupService) => component.scoringTiles,
