@@ -2,6 +2,7 @@ import { Location } from '@angular/common';
 import { Component, Injector, OnInit, TemplateRef, Type } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
+import { KeysOfType } from '../../utils';
 
 @Component({
   selector: 'app-grid-selection',
@@ -16,7 +17,7 @@ export class GridSelectionPage implements OnInit {
   itemTemplate: TemplateRef<SelectableItemTemplateContext<SelectableItem>>;
 
   private bindComponent: any;
-  private setSelectedItemsCallback: (component: any, items: SelectableItem[]) => void;
+  private bindPropertyItems: KeysOfType<any, SelectableItem[]>;
 
   constructor(
     private router: Router,
@@ -30,11 +31,11 @@ export class GridSelectionPage implements OnInit {
     this.route.data.subscribe((data: GridSelectionData<any, SelectableItem>) => {
       this.title = data.title;
       this.bindComponent = this.injector.get(data.bindComponentType);
+      this.bindPropertyItems = data.bindPropertyItems;
       this.allItems = data.allItems;
-      const selectedItems = data.getSelectedItems(this.bindComponent);
+      const selectedItems = this.bindComponent[this.bindPropertyItems];
       this.listSelected = this.allItems.map(item => _.find(selectedItems, item) != null);
-      this.setSelectedItemsCallback = data.setSelectedItems;
-      this.itemTemplate = data.getCustomTemplate?.(this.bindComponent);
+      this.itemTemplate = this.bindComponent[data.bindPropertyTemplate];
     });
   }
 
@@ -45,7 +46,7 @@ export class GridSelectionPage implements OnInit {
         newItems.push(this.allItems[i]);
       }
     });
-    this.setSelectedItemsCallback(this.bindComponent, newItems);
+    this.bindComponent[this.bindPropertyItems] = newItems;
     this.onClickCancel(); // Go back
   }
 
@@ -66,15 +67,13 @@ export interface SelectableItem {
 }
 
 export interface SelectableItemTemplateContext<T> {
-  item: T;
+  readonly item: T;
 }
 
 export interface GridSelectionData<T, U extends SelectableItem> {
-  title: string;
-  bindComponentType: Type<T>;
-  allItems: U[];
-
-  getSelectedItems(component: T): U[];
-  setSelectedItems(component: T, items: U[]): void;
-  getCustomTemplate?(component: T): TemplateRef<SelectableItemTemplateContext<U>>;
+  readonly title: string;
+  readonly bindComponentType: Type<T>;
+  readonly bindPropertyItems: KeysOfType<T, U[]>;
+  readonly bindPropertyTemplate?: KeysOfType<T, TemplateRef<SelectableItemTemplateContext<U>>>;
+  readonly allItems: U[];
 }

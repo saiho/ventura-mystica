@@ -1,7 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import { ActivatedRoute, ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
-import { GridSelectionData } from './grid-selection.page';
+import { GridSelectionData, SelectableItem } from './grid-selection.page';
 
 @Injectable()
 export class GridSelectionGuard implements CanActivate {
@@ -14,9 +14,9 @@ export class GridSelectionGuard implements CanActivate {
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):
     Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const data = route.data as GridSelectionData<any, any>;
+    const data = route.data as GridSelectionData<any, SelectableItem>;
     const bindComponent = this.injector.get(data.bindComponentType);
-    if (data.getSelectedItems(bindComponent) instanceof Array) {
+    if (bindComponent[data.bindPropertyItems] instanceof Array) {
       return true;
     }
     // Redirect to parent route if this page was loaded manually (with no extra state parameters)

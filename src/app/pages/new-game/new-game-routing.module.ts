@@ -20,10 +20,9 @@ const routes: Routes = [
     data: {
       title: 'scoring-tiles',
       bindComponentType: GameSetupService,
-      allItems: SCORING_TILES_ALL,
-      getSelectedItems: (component: GameSetupService) => component.scoringTiles,
-      setSelectedItems: (component: GameSetupService, items: ScoringTile[]) => { component.scoringTiles = items; },
-      getCustomTemplate: (component: GameSetupService) => component.scoringTileTemplate
+      bindPropertyItems: 'scoringTiles',
+      bindPropertyTemplate: 'scoringTileTemplate',
+      allItems: SCORING_TILES_ALL
     } as GridSelectionData<GameSetupService, ScoringTile>
   },
   {
@@ -33,9 +32,8 @@ const routes: Routes = [
     data: {
       title: 'game-boards',
       bindComponentType: GameSetupService,
-      allItems: GAME_BOARDS_ALL,
-      getSelectedItems: (component: GameSetupService) => component.gameBoards,
-      setSelectedItems: (component: GameSetupService, items: GameBoard[]) => { component.gameBoards = items; }
+      bindPropertyItems: 'gameBoards',
+      allItems: GAME_BOARDS_ALL
     } as GridSelectionData<GameSetupService, GameBoard>
   }
 ];
