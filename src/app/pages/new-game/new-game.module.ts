@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { SharedModule } from 'src/app/shared/shared.module';
-import { GameSetupPage } from './game-setup/game-setup.page';
 import { NewGamePageRoutingModule } from './new-game-routing.module';
 import { NewGamePage } from './new-game.page';
 
@@ -10,8 +9,7 @@ import { NewGamePage } from './new-game.page';
     NewGamePageRoutingModule
   ],
   declarations: [
-    NewGamePage,
-    GameSetupPage
+    NewGamePage
   ]
 })
 export class NewGamePageModule { }
