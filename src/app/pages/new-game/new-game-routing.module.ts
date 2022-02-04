@@ -23,6 +23,7 @@ const routes: Routes = [
         component: GridSelectionPage,
         canActivate: [GridSelectionGuard],
         data: {
+          title: 'scoring-tiles',
           bindComponentType: GameSetupService,
           allItems: SCORING_TILES_ALL,
           getSelectedItems: (component: GameSetupService) => component.scoringTiles,
@@ -35,6 +36,7 @@ const routes: Routes = [
         component: GridSelectionPage,
         canActivate: [GridSelectionGuard],
         data: {
+          title: 'game-boards',
           bindComponentType: GameSetupService,
           allItems: GAME_BOARDS_ALL,
           getSelectedItems: (component: GameSetupService) => component.gameBoards,
