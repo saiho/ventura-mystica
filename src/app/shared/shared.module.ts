@@ -5,8 +5,8 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { DateIntPipe } from '../pipes/date-int.pipe';
 import { GridSelectionPageModule } from './pages/grid-selection/grid-selection.module';
-import { FactionsValidatorDirective } from './validations/input-factions-validator.directive';
-import { ScoringTilesValidatorDirective } from './validations/input-scoring-tiles-validator.directive';
+import { FactionsValidatorDirective } from './validations/factions-validator.directive';
+import { ScoringTilesValidatorDirective } from './validations/scoring-tiles-validator.directive';
 import { SelectedMinimumDirective } from './validations/selected-minimum-validator.directive';
 
 @NgModule({
