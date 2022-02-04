@@ -59,8 +59,8 @@ export class GridSelectionPage implements OnInit {
 }
 
 export interface SelectableItem {
-  get text(): string | null;
-  get image(): string | null;
+  getDescription?(): string;
+  getImage?(): string;
 }
 
 export interface SelectableItemTemplateContext<T> {

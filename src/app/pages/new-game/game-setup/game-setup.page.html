@@ -61,15 +61,15 @@
           <ion-label translate>bonus-cards</ion-label>
           <ion-note translate [translateParams]="{ num: setup.bonusCards.length }">bonus-cards-description</ion-note>
         </div>
-        <ion-select name="bonusCards" [(ngModel)]="setup.bonusCards" slot="end" multiple appBonusCardsValidator
-          [numPlayers]="setup.numPlayers" #bonusCardsSelect="ngModel">
+        <ion-select name="bonusCards" [(ngModel)]="setup.bonusCards" slot="end" multiple appSelectedMinimumValidator
+          [minimum]="setup.numPlayers + 3" #bonusCardsSelect="ngModel">
           <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>
             {{bonusCard.description}}
           </ion-select-option>
         </ion-select>
       </ion-item>
       <div class="ion-padding-horizontal ion-padding-bottom">
-        <ion-text *ngIf="bonusCardsSelect.errors?.invalidBonusCards" color="danger" translate>
+        <ion-text *ngIf="bonusCardsSelect.errors?.invalidMinimum" color="danger" translate>
           bonus-cards-invalid
         </ion-text>
       </div>
@@ -102,6 +102,21 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
+
+      <ion-item routerLink="game-boards">
+        <div>
+          <ion-label translate>game-boards</ion-label>
+          <ion-note translate [translateParams]="{ num: setup.gameBoards.length }">game-boards-description
+          </ion-note>
+        </div>
+        <input type="hidden" name="gameBoards" [(ngModel)]="setup.gameBoards" appSelectedMinimumValidator [minimum]="1"
+          #gameBoardsSelect="ngModel">
+      </ion-item>
+      <div class="ion-padding-horizontal ion-padding-bottom">
+        <ion-text *ngIf="gameBoardsSelect.errors?.invalidMinimum" color="danger" translate>
+          game-boards-invalid
+        </ion-text>
+      </div>
 
       <ion-button (click)="onClickGenerate()" [disabled]="!form.valid" translate>generate</ion-button>
     </form>

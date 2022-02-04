@@ -38,14 +38,8 @@ export class ScoringTile implements SelectableItem {
     public readonly endRoundRewardCount: number = 1) {
   }
 
-  get text(): string | null {
-    // Use custom template
-    return null;
-  }
-
-  get image(): string | null {
-    // Use custom template
-    return null;
+  getDescription(): string {
+    return null; // Use template for showing description
   }
 }
 
