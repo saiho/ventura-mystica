@@ -37,17 +37,13 @@
         </ion-item>
       </ion-radio-group>
 
-      <ion-item>
+      <ion-item routerLink="factions">
         <div>
           <ion-label translate>factions</ion-label>
           <ion-note translate [translateParams]="{ num: setup.factions.length }">factions-description</ion-note>
         </div>
-        <ion-select name="factions" [(ngModel)]="setup.factions" (ionChange)="onFactionsChange()" slot="end" multiple
-          appFactionsValidator [numPlayers]="setup.numPlayers" #factionsSelect="ngModel">
-          <ion-select-option *ngFor="let faction of allFactions" [value]="faction" translate>
-            {{faction.name}}
-          </ion-select-option>
-        </ion-select>
+        <input type="hidden" name="factions" [(ngModel)]="setup.factions" appFactionsValidator [numPlayers]="setup.numPlayers"
+          #factionsSelect="ngModel">
       </ion-item>
       <div class="ion-padding-horizontal ion-padding-bottom">
         <ion-text *ngIf="factionsSelect.errors?.invalidFactions" color="danger" translate>factions-invalid
@@ -65,17 +61,13 @@
         </ion-range>
       </ion-item>
 
-      <ion-item>
+      <ion-item routerLink="bonus-cards">
         <div>
           <ion-label translate>bonus-cards</ion-label>
           <ion-note translate [translateParams]="{ num: setup.bonusCards.length }">bonus-cards-description</ion-note>
         </div>
-        <ion-select name="bonusCards" [(ngModel)]="setup.bonusCards" slot="end" multiple appSelectedMinimumValidator
+        <input type="hidden" name="bonusCards" [(ngModel)]="setup.bonusCards" appSelectedMinimumValidator
           [minimum]="setup.numPlayers + 3" #bonusCardsSelect="ngModel">
-          <ion-select-option *ngFor="let bonusCard of allBonusCards" [value]="bonusCard" translate>
-            {{bonusCard.description}}
-          </ion-select-option>
-        </ion-select>
       </ion-item>
       <div class="ion-padding-horizontal ion-padding-bottom">
         <ion-text *ngIf="bonusCardsSelect.errors?.invalidMinimum" color="danger" translate>
@@ -98,18 +90,13 @@
         </ion-text>
       </div>
 
-      <ion-item>
+      <ion-item routerLink="extra-final-scoring-tiles">
         <div>
           <ion-label translate>extra-final-scoring-tiles</ion-label>
           <ion-note translate [translateParams]="{ num: setup.extraFinalScoringTiles.length }">
             extra-final-scoring-tiles-description
           </ion-note>
         </div>
-        <ion-select name="extraFinalScoringTiles" [(ngModel)]="setup.extraFinalScoringTiles" slot="end" multiple>
-          <ion-select-option *ngFor="let extraFinalScoringTile of allExtraFinalScoringTiles"
-            [value]="extraFinalScoringTile" translate>{{extraFinalScoringTile.name}}
-          </ion-select-option>
-        </ion-select>
       </ion-item>
 
       <ion-item routerLink="game-boards">

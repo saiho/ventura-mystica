@@ -1,8 +1,14 @@
-export class BonusCard {
+import { SelectableItem } from '../shared/pages/grid-selection/grid-selection.page';
+
+export class BonusCard implements SelectableItem {
   public constructor(
     public readonly description: string,
     public readonly official: boolean
   ) {
+  }
+
+  getName(): string {
+    return this.description;
   }
 }
 

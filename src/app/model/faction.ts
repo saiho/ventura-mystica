@@ -1,15 +1,16 @@
+import { SelectableItem } from '../shared/pages/grid-selection/grid-selection.page';
 import { Terrain } from './terrain';
 
-export class Faction {
+export class Faction implements SelectableItem {
   public constructor(
     public readonly name: string,
     public readonly terrain: Terrain
   ) {
   }
 
-  public toString(): string {
+  getName(): string {
     return this.name;
-  };
+  }
 }
 
 // Basic

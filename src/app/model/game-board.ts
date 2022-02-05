@@ -6,7 +6,7 @@ export class GameBoard implements SelectableItem {
   ) {
   }
 
-  getDescription(): string {
+  getName(): string {
     return this.name;
   }
 }

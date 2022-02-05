@@ -62,7 +62,7 @@ export class GridSelectionPage implements OnInit {
 }
 
 export interface SelectableItem {
-  getDescription?(): string;
+  getName?(): string;
   getImage?(): string;
 }
 

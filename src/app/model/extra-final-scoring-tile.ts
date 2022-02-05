@@ -1,7 +1,13 @@
-export class ExtraFinalScoringTile {
+import { SelectableItem } from '../shared/pages/grid-selection/grid-selection.page';
+
+export class ExtraFinalScoringTile implements SelectableItem {
   public constructor(
     public readonly name: string
   ) {
+  }
+
+  getName(): string {
+    return this.name;
   }
 }
 

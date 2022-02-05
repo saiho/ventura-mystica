@@ -1,6 +1,8 @@
-import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
+import { NavigationEnd, Router } from '@angular/router';
 import * as _ from 'lodash';
+import { filter, Subscription } from 'rxjs';
 import { BonusCard, BONUS_CARDS_ALL } from 'src/app/model/bonus-card';
 import { ExtraFinalScoringTile, EXTRA_FINAL_SCORING_TILES_ALL } from 'src/app/model/extra-final-scoring-tile';
 import { Faction, FACTIONS_ALL } from 'src/app/model/faction';
@@ -15,7 +17,7 @@ import { GameSetupService } from './game-setup.service';
   templateUrl: './new-game.page.html',
   styleUrls: ['./new-game.page.scss']
 })
-export class NewGamePage implements OnInit {
+export class NewGamePage implements OnInit, OnDestroy {
 
 
   @ViewChild('factionsSelect')
@@ -43,8 +45,12 @@ export class NewGamePage implements OnInit {
   pickedExtraFinalScoringTile: ExtraFinalScoringTile;
   pickedGameBoard: GameBoard;
 
+  private routerUrl: string;
+  private routerEventsSubscription: Subscription;
+
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
+    private router: Router,
     public setup: GameSetupService
   ) {
   }
@@ -52,6 +58,21 @@ export class NewGamePage implements OnInit {
   ngOnInit() {
     this.setup.scoringTileTemplate = this.scoringTileTemplate;
     this.onProfileChange();
+
+    // Monitor events after page is loaded to detected changes done externally
+    this.routerUrl = this.router.url;
+    this.routerEventsSubscription = this.router.events
+      .pipe(filter(event => event instanceof NavigationEnd && event.url === this.routerUrl))
+      .subscribe((event: NavigationEnd) => this.onNavigationEnd(event));
+  }
+
+  ngOnDestroy(): void {
+    this.routerEventsSubscription.unsubscribe();
+  }
+
+  onNavigationEnd(event: NavigationEnd) {
+    // Review changes done externally
+    this.correctNumFactions();
   }
 
   onProfileChange() {
@@ -65,10 +86,6 @@ export class NewGamePage implements OnInit {
     this.changeDetectorRef.detectChanges(); // Force update values bound to the validator
     this.factionsSelect.control.updateValueAndValidity();
     this.bonusCardsSelect.control.updateValueAndValidity();
-  }
-
-  onFactionsChange() {
-    this.correctNumFactions();
   }
 
   onClickGenerate() {
