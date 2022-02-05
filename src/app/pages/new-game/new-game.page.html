@@ -164,12 +164,31 @@
       <ion-item-divider>
         <ion-label translate>scoring-tiles</ion-label>
       </ion-item-divider>
+      <ion-row>
+        <ion-col *ngFor="let scoringTile of pickedScoringTiles">
+          <ion-item>
+            <ng-container *ngTemplateOutlet="scoringTileTemplate; context: { item: scoringTile }"></ng-container>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-item-group>
+
+    <ion-item-group *ngIf="pickedExtraFinalScoringTile">
+      <ion-item-divider>
+        <ion-label translate>extra-final-scoring-tile</ion-label>
+      </ion-item-divider>
+      <ion-item>
+        <ion-label translate>{{pickedExtraFinalScoringTile.name}}</ion-label>
+      </ion-item>
     </ion-item-group>
 
     <ion-item-group>
       <ion-item-divider>
-        <ion-label translate>final-scoring-tiles</ion-label>
+        <ion-label translate>game-board</ion-label>
       </ion-item-divider>
+      <ion-item>
+        <ion-label translate>{{pickedGameBoard.name}}</ion-label>
+      </ion-item>
     </ion-item-group>
   </ion-list>
 

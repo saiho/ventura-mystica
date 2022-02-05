@@ -2,8 +2,9 @@ import { ChangeDetectorRef, Component, OnInit, TemplateRef, ViewChild } from '@a
 import { NgModel } from '@angular/forms';
 import * as _ from 'lodash';
 import { BonusCard, BONUS_CARDS_ALL } from 'src/app/model/bonus-card';
-import { EXTRA_FINAL_SCORING_TILES_ALL } from 'src/app/model/extra-final-scoring-tile';
+import { ExtraFinalScoringTile, EXTRA_FINAL_SCORING_TILES_ALL } from 'src/app/model/extra-final-scoring-tile';
 import { Faction, FACTIONS_ALL } from 'src/app/model/faction';
+import { GameBoard } from 'src/app/model/game-board';
 import { PREDEFINED_PROFILES } from 'src/app/model/profile';
 import { ScoringTile } from 'src/app/model/scoring-tile';
 import { SelectableItemTemplateContext } from 'src/app/shared/pages/grid-selection/grid-selection.page';
@@ -34,9 +35,13 @@ export class NewGamePage implements OnInit {
   // Temp values
   maxNumFactions: number;
   generated = false;
+
   // Generated game setup
   pickedFactions: Faction[];
   pickedBonusCards: BonusCard[];
+  pickedScoringTiles: ScoringTile[];
+  pickedExtraFinalScoringTile: ExtraFinalScoringTile;
+  pickedGameBoard: GameBoard;
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
@@ -74,6 +79,8 @@ export class NewGamePage implements OnInit {
       _.sampleSize(_.groupBy(this.setup.factions, 'terrain'), this.setup.numFactions)
         .map(l => _.sample(l));
     this.pickedBonusCards = _.sampleSize(this.setup.bonusCards, this.setup.numPlayers + 3);
+    this.pickedExtraFinalScoringTile = _.sample(this.setup.extraFinalScoringTiles);
+    this.pickedGameBoard = _.sample(this.setup.gameBoards);
     this.generated = true;
   }
 
