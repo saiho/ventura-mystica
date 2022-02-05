@@ -1,0 +1,2 @@
+export const TOTAL_ROUNDS = 6;
+export const MAX_OCURRENCES_END_ROUND_REWARD_CONDITION = 2;

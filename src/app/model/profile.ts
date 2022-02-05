@@ -43,6 +43,7 @@ export interface ProfileDetails {
   gameBoards: GameBoard[];
   numPlayers: number;
   numFactions: number;
+  allowCityScoring1stRound: boolean;
 }
 
 export class Profile implements ProfileDetails {
@@ -55,7 +56,8 @@ export class Profile implements ProfileDetails {
     public extraFinalScoringTiles: ExtraFinalScoringTile[],
     public gameBoards: GameBoard[],
     public numPlayers: number = 2,
-    public numFactions: number = numPlayers
+    public numFactions: number = numPlayers,
+    public allowCityScoring1stRound: boolean = true
   ) {
   }
 
@@ -75,6 +77,7 @@ export class Profile implements ProfileDetails {
     profileDetails.gameBoards = this.gameBoards;
     profileDetails.numPlayers = this.numPlayers;
     profileDetails.numFactions = this.numFactions;
+    profileDetails.allowCityScoring1stRound = this.allowCityScoring1stRound;
   }
 }
 

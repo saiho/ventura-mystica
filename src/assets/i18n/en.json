@@ -105,6 +105,7 @@
   "reward-type.shipping-upgrade": "advance on the Shipping track.",
   "reward-type.spade": "gain {{count}} spade.",
   "reward-type.worker": "gain {{count}} worker.",
+  "round-num": "Round {{num}}",
   "scoring-tiles-description": "{{num}} scoring tiles to pick randomly from.",
   "scoring-tiles-invalid": "At least 6 scoring tiles are required which could be combined in a way such that the same cult is not scored three times.",
   "scoring-tiles": "Scoring tiles",

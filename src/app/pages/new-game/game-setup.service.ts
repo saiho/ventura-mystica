@@ -13,6 +13,7 @@ import { SelectableItemTemplateContext } from 'src/app/shared/pages/grid-selecti
 export class GameSetupService implements ProfileDetails {
   // Selected profile
   baseProfile: Profile = BASIC_PROFILE;
+
   // Game settings (extracted from the base profile)
   factions: Faction[];
   bonusCards: BonusCard[];
@@ -21,6 +22,8 @@ export class GameSetupService implements ProfileDetails {
   gameBoards: GameBoard[];
   numPlayers: number;
   numFactions: number;
+  allowCityScoring1stRound: boolean;
 
+  // Data shared between routes
   scoringTileTemplate: TemplateRef<SelectableItemTemplateContext<ScoringTile>>;
 }

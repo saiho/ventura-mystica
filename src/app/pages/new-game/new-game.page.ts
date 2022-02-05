@@ -9,7 +9,9 @@ import { Faction, FACTIONS_ALL } from 'src/app/model/faction';
 import { GameBoard } from 'src/app/model/game-board';
 import { PREDEFINED_PROFILES } from 'src/app/model/profile';
 import { ScoringTile } from 'src/app/model/scoring-tile';
+import { TOTAL_ROUNDS } from 'src/app/shared/constants';
 import { SelectableItemTemplateContext } from 'src/app/shared/pages/grid-selection/grid-selection.page';
+import { isValidCombinationScoringTiles } from 'src/app/shared/validations/scoring-tiles-validator.directive';
 import { GameSetupService } from './game-setup.service';
 
 @Component({
@@ -95,9 +97,26 @@ export class NewGamePage implements OnInit, OnDestroy {
     this.pickedFactions =
       _.sampleSize(_.groupBy(this.setup.factions, 'terrain'), this.setup.numFactions)
         .map(l => _.sample(l));
+
+    // Pick bonus cards randomly
     this.pickedBonusCards = _.sampleSize(this.setup.bonusCards, this.setup.numPlayers + 3);
+
+    // Pick scoring tiles randomly
+    let maxIter = 100; /* Safe guard: try max 100 times to get a valid combination. The generate button should not be
+                          enabled unless there is a valid combination, but still be sure to avoid infinite loops. */
+    do {
+      this.pickedScoringTiles = _.sampleSize(this.setup.scoringTiles, TOTAL_ROUNDS);
+      maxIter--;
+    } while (
+      !isValidCombinationScoringTiles(this.pickedScoringTiles, { allowCityScoring1stRound: this.setup.allowCityScoring1stRound })
+      && maxIter >= 0);
+
+    // Pick extra final scoring tile randomly
     this.pickedExtraFinalScoringTile = _.sample(this.setup.extraFinalScoringTiles);
+
+    // Pick game board randomly
     this.pickedGameBoard = _.sample(this.setup.gameBoards);
+
     this.generated = true;
   }
 
