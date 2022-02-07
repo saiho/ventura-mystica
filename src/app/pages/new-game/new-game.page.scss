@@ -8,16 +8,14 @@ ion-menu-button {
   flex-wrap: wrap;
 }
 
-// Style of number of factions
-ion-item.item-label-stacked ion-label {
-  flex: auto;
-}
-ion-range.range-has-pin {
-  padding-top: 0px;
-}
-
 // Do not show selected item in ion-select
 ion-item ion-select::part(text),
 ion-item ion-select::part(placeholder) {
   display: none;
+}
+
+// Text input
+ion-input {
+  border: solid 2px #ffc6097c;
+  border-radius: 10px;
 }

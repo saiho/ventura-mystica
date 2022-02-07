@@ -1,17 +1,12 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { NgModel } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import * as _ from 'lodash';
 import { filter, Subscription } from 'rxjs';
-import { BonusCard } from 'src/app/model/bonus-card';
-import { ExtraFinalScoringTile } from 'src/app/model/extra-final-scoring-tile';
-import { Faction } from 'src/app/model/faction';
-import { GameBoard } from 'src/app/model/game-board';
-import { PREDEFINED_PROFILES } from 'src/app/model/profile';
+import { BASIC_PROFILE, PREDEFINED_PROFILES, Profile } from 'src/app/model/profile';
 import { ScoringTile } from 'src/app/model/scoring-tile';
-import { TOTAL_ROUNDS } from 'src/app/shared/constants';
 import { SelectableItemTemplateContext } from 'src/app/shared/pages/grid-selection/grid-selection.page';
-import { isValidCombinationScoringTiles } from 'src/app/shared/validations/scoring-tiles-validator.directive';
 import { GameSetupService } from './game-setup.service';
 
 @Component({
@@ -20,7 +15,6 @@ import { GameSetupService } from './game-setup.service';
   styleUrls: ['./new-game.page.scss']
 })
 export class NewGamePage implements OnInit, OnDestroy {
-
 
   @ViewChild('factionsSelect')
   private factionsSelect: NgModel;
@@ -33,16 +27,11 @@ export class NewGamePage implements OnInit, OnDestroy {
 
   readonly allProfiles = PREDEFINED_PROFILES;
 
+  // Selected profile
+  baseProfile: Profile = BASIC_PROFILE;
+
   // Temp values
   maxNumFactions: number;
-  generated = false;
-
-  // Generated game setup
-  pickedFactions: Faction[];
-  pickedBonusCards: BonusCard[];
-  pickedScoringTiles: ScoringTile[];
-  pickedExtraFinalScoringTile: ExtraFinalScoringTile;
-  pickedGameBoard: GameBoard;
 
   private routerUrl: string;
   private routerEventsSubscription: Subscription;
@@ -50,6 +39,7 @@ export class NewGamePage implements OnInit, OnDestroy {
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private router: Router,
+    private translate: TranslateService,
     public setup: GameSetupService
   ) {
   }
@@ -71,61 +61,35 @@ export class NewGamePage implements OnInit, OnDestroy {
 
   onNavigationEnd(event: NavigationEnd) {
     // Review changes done externally
-    this.correctNumFactions();
+    this.calculateMaxNumFactions();
   }
 
   onProfileChange() {
-    // Copy profile details (adjustments are lost when switching to another profile)
-    this.setup.baseProfile.copyDeatilsTo(this.setup);
-    this.correctNumFactions();
+    // Copy profile options (adjustments are lost when switching to another profile)
+    this.baseProfile.copyOptionsTo(this.setup);
+    this.fillMissingPlayerNames();
+    this.calculateMaxNumFactions();
   }
 
   onNumPlayersChange() {
-    this.correctNumFactions();
     this.changeDetectorRef.detectChanges(); // Force update values bound to the validator
     this.factionsSelect.control.updateValueAndValidity();
     this.bonusCardsSelect.control.updateValueAndValidity();
   }
 
-  onClickGenerate() {
-    // Group factions by terrain (color)
-    // Pick randomly as many terrains as players
-    // Pick randomly faction of each terrain
-    this.pickedFactions =
-      _.sampleSize(_.groupBy(this.setup.factions, 'terrain'), this.setup.numFactions)
-        .map(l => _.sample(l));
-
-    // Pick bonus cards randomly
-    this.pickedBonusCards = _.sampleSize(this.setup.bonusCards, this.setup.numPlayers + 3);
-
-    // Pick scoring tiles randomly
-    let maxIter = 100; /* Safe guard: try max 100 times to get a valid combination. The generate button should not be
-                          enabled unless there is a valid combination, but still be sure to avoid infinite loops. */
-    do {
-      this.pickedScoringTiles = _.sampleSize(this.setup.scoringTiles, TOTAL_ROUNDS);
-      maxIter--;
-    } while (
-      !isValidCombinationScoringTiles(this.pickedScoringTiles, { allowCityScoring1stRound: this.setup.allowCityScoring1stRound })
-      && maxIter >= 0);
-
-    // Pick extra final scoring tile randomly
-    this.pickedExtraFinalScoringTile = _.sample(this.setup.extraFinalScoringTiles);
-
-    // Pick game board randomly
-    this.pickedGameBoard = _.sample(this.setup.gameBoards);
-
-    this.generated = true;
+  fillMissingPlayerNames() {
+    for (let i = 0; i < 5; i++) {
+      const name = this.setup.playerNames[i];
+      if (!name || name.trim() === '') {
+        this.translate.get('default-player-name.' + (i + 1)).subscribe(translation => this.setup.playerNames[i] = translation);
+      } else {
+        this.setup.playerNames[i] = name.trim();
+      }
+    }
   }
 
-  private correctNumFactions() {
+  private calculateMaxNumFactions() {
     this.maxNumFactions = _.uniqBy(this.setup.factions, 'terrain').length;
-    if (this.setup.numFactions < this.setup.numPlayers) {
-      this.setup.numFactions = this.setup.numPlayers;
-    }
-    if (this.setup.numFactions > this.maxNumFactions) {
-      this.setup.numFactions = this.maxNumFactions;
-    }
   }
-
 
 }

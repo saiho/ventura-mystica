@@ -8,6 +8,7 @@ import { ScoringTile, SCORING_TILES_ALL } from 'src/app/model/scoring-tile';
 import { GridSelectionGuard } from 'src/app/shared/pages/grid-selection/grid-selection.guard';
 import { GridSelectionData, GridSelectionPage } from 'src/app/shared/pages/grid-selection/grid-selection.page';
 import { GameSetupService } from './game-setup.service';
+import { GenerateSetupPage } from './generate-setup/generate-setup.page';
 import { NewGamePage } from './new-game.page';
 
 
@@ -71,6 +72,10 @@ const routes: Routes = [
       bindPropertyItems: 'gameBoards',
       allItems: GAME_BOARDS_ALL
     } as GridSelectionData<GameSetupService, GameBoard>
+  },
+  {
+    path: 'setup',
+    component: GenerateSetupPage
   }
 ];
 

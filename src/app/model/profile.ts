@@ -27,6 +27,7 @@ import {
   GAME_BOARDS_FIRE_ICE,
   GAME_BOARDS_MERCHANTS
 } from './game-board';
+import { FactionSelectMode, GameSetupOptions } from './game-setup-options';
 import {
   ScoringTile,
   SCORING_TILES_ALL,
@@ -35,18 +36,7 @@ import {
   SCORING_TILES_MINI_EXPANSION
 } from './scoring-tile';
 
-export interface ProfileDetails {
-  factions: Faction[];
-  bonusCards: BonusCard[];
-  scoringTiles: ScoringTile[];
-  extraFinalScoringTiles: ExtraFinalScoringTile[];
-  gameBoards: GameBoard[];
-  numPlayers: number;
-  numFactions: number;
-  allowCityScoring1stRound: boolean;
-}
-
-export class Profile implements ProfileDetails {
+export class Profile implements GameSetupOptions {
   public constructor(
     public readonly predefined: boolean,
     public name: string,
@@ -55,9 +45,10 @@ export class Profile implements ProfileDetails {
     public scoringTiles: ScoringTile[],
     public extraFinalScoringTiles: ExtraFinalScoringTile[],
     public gameBoards: GameBoard[],
-    public numPlayers: number = 2,
-    public numFactions: number = numPlayers,
-    public allowCityScoring1stRound: boolean = true
+    public numPlayers = 2,
+    public factionSelectMode = FactionSelectMode.bid,
+    public allowCityScoring1stRound = true,
+    public playerNames: string[] = []
   ) {
   }
 
@@ -69,15 +60,19 @@ export class Profile implements ProfileDetails {
     return this.name;
   };
 
-  public copyDeatilsTo(profileDetails: ProfileDetails) {
-    profileDetails.factions = this.factions;
-    profileDetails.bonusCards = this.bonusCards;
-    profileDetails.scoringTiles = this.scoringTiles;
-    profileDetails.extraFinalScoringTiles = this.extraFinalScoringTiles;
-    profileDetails.gameBoards = this.gameBoards;
-    profileDetails.numPlayers = this.numPlayers;
-    profileDetails.numFactions = this.numFactions;
-    profileDetails.allowCityScoring1stRound = this.allowCityScoring1stRound;
+  public copyOptionsTo(setupOptions: GameSetupOptions) {
+    setupOptions.factions = this.factions;
+    setupOptions.bonusCards = this.bonusCards;
+    setupOptions.scoringTiles = this.scoringTiles;
+    setupOptions.extraFinalScoringTiles = this.extraFinalScoringTiles;
+    setupOptions.gameBoards = this.gameBoards;
+    setupOptions.numPlayers = this.numPlayers;
+    setupOptions.factionSelectMode = this.factionSelectMode;
+    setupOptions.allowCityScoring1stRound = this.allowCityScoring1stRound;
+    // do not replace playerNames
+    if (!setupOptions.playerNames) {
+      setupOptions.playerNames = this.playerNames;
+    }
   }
 }
 
