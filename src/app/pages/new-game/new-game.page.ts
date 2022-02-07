@@ -3,9 +3,9 @@ import { NgModel } from '@angular/forms';
 import { NavigationEnd, Router } from '@angular/router';
 import * as _ from 'lodash';
 import { filter, Subscription } from 'rxjs';
-import { BonusCard, BONUS_CARDS_ALL } from 'src/app/model/bonus-card';
-import { ExtraFinalScoringTile, EXTRA_FINAL_SCORING_TILES_ALL } from 'src/app/model/extra-final-scoring-tile';
-import { Faction, FACTIONS_ALL } from 'src/app/model/faction';
+import { BonusCard } from 'src/app/model/bonus-card';
+import { ExtraFinalScoringTile } from 'src/app/model/extra-final-scoring-tile';
+import { Faction } from 'src/app/model/faction';
 import { GameBoard } from 'src/app/model/game-board';
 import { PREDEFINED_PROFILES } from 'src/app/model/profile';
 import { ScoringTile } from 'src/app/model/scoring-tile';
@@ -32,9 +32,6 @@ export class NewGamePage implements OnInit, OnDestroy {
   private scoringTileTemplate: TemplateRef<SelectableItemTemplateContext<ScoringTile>>;
 
   readonly allProfiles = PREDEFINED_PROFILES;
-  readonly allFactions = FACTIONS_ALL;
-  readonly allBonusCards = BONUS_CARDS_ALL;
-  readonly allExtraFinalScoringTiles = EXTRA_FINAL_SCORING_TILES_ALL;
 
   // Temp values
   maxNumFactions: number;
