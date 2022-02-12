@@ -7,7 +7,8 @@ import { GameBoard, GAME_BOARDS_ALL } from 'src/app/model/game-board';
 import { ScoringTile, SCORING_TILES_ALL } from 'src/app/model/scoring-tile';
 import { GridSelectionGuard } from 'src/app/shared/pages/grid-selection/grid-selection.guard';
 import { GridSelectionData, GridSelectionPage } from 'src/app/shared/pages/grid-selection/grid-selection.page';
-import { GameSetupService } from './game-setup.service';
+import { GameSetupService } from '../../shared/services/game-setup.service';
+import { GenerateSetupGuard } from './generate-setup/generate-setup.guard';
 import { GenerateSetupPage } from './generate-setup/generate-setup.page';
 import { NewGamePage } from './new-game.page';
 
@@ -75,7 +76,8 @@ const routes: Routes = [
   },
   {
     path: 'setup',
-    component: GenerateSetupPage
+    component: GenerateSetupPage,
+    canActivate: [GenerateSetupGuard]
   }
 ];
 

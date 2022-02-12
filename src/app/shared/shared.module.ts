@@ -5,6 +5,7 @@ import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { DateIntPipe } from '../pipes/date-int.pipe';
 import { GridSelectionPageModule } from './pages/grid-selection/grid-selection.module';
+import { GameSetupService } from './services/game-setup.service';
 import { FactionsValidatorDirective } from './validations/factions-validator.directive';
 import { ScoringTilesValidatorDirective } from './validations/scoring-tiles-validator.directive';
 import { SelectedMinimumDirective } from './validations/selected-minimum-validator.directive';
@@ -33,6 +34,9 @@ import { SelectedMinimumDirective } from './validations/selected-minimum-validat
     SelectedMinimumDirective,
     FactionsValidatorDirective,
     ScoringTilesValidatorDirective
+  ],
+  providers: [
+    GameSetupService
   ]
 })
 export class SharedModule { }

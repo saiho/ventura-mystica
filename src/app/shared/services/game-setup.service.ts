@@ -7,9 +7,7 @@ import { FactionSelectMode, GameSetupOptions } from 'src/app/model/game-setup-op
 import { ScoringTile } from 'src/app/model/scoring-tile';
 import { SelectableItemTemplateContext } from 'src/app/shared/pages/grid-selection/grid-selection.page';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class GameSetupService implements GameSetupOptions {
   // Game settings (extracted from the base profile)
   factions: Faction[];

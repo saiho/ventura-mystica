@@ -7,7 +7,7 @@ import { filter, Subscription } from 'rxjs';
 import { BASIC_PROFILE, PREDEFINED_PROFILES, Profile } from 'src/app/model/profile';
 import { ScoringTile } from 'src/app/model/scoring-tile';
 import { SelectableItemTemplateContext } from 'src/app/shared/pages/grid-selection/grid-selection.page';
-import { GameSetupService } from './game-setup.service';
+import { GameSetupService } from '../../shared/services/game-setup.service';
 
 @Component({
   selector: 'app-new-game',

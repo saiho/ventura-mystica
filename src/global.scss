@@ -40,3 +40,8 @@
 .wide-select .alert-radio-label {
   white-space: normal; // wrap text
 }
+
+.single-line {
+  display: flex;
+  flex-wrap: wrap;
+}

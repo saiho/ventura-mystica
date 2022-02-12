@@ -8,7 +8,7 @@ import { FactionSelectMode } from 'src/app/model/game-setup-options';
 import { ScoringTile } from 'src/app/model/scoring-tile';
 import { TOTAL_ROUNDS } from 'src/app/shared/constants';
 import { isValidCombinationScoringTiles } from 'src/app/shared/validations/scoring-tiles-validator.directive';
-import { GameSetupService } from '../game-setup.service';
+import { GameSetupService } from '../../../shared/services/game-setup.service';
 
 @Component({
   selector: 'app-generate-setup',

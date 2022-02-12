@@ -32,7 +32,7 @@
         <ion-radio-group name="numPlayers" [(ngModel)]="setup.numPlayers" (ionChange)="onNumPlayersChange()">
           <ion-item lines="none">
             <ion-label style="min-width: 140px;" translate>number-of-players</ion-label>
-            <div class="single-line-radio">
+            <div class="single-line">
               <ion-item *ngFor="let num of [2, 3, 4, 5]">
                 <ion-label>{{num}}</ion-label>
                 <ion-radio slot="start" [value]="num"></ion-radio>
@@ -57,7 +57,7 @@
         <ion-radio-group name="factionSelectMode" [(ngModel)]="setup.factionSelectMode">
           <ion-item lines="none">
             <ion-label style="min-width: 140px;" translate>faction-select-mode</ion-label>
-            <div class="single-line-radio">
+            <div class="single-line">
               <ion-item>
                 <ion-label translate>faction-select-mode.bid</ion-label>
                 <ion-radio slot="start" value="faction-select-mode.bid"></ion-radio>
@@ -120,6 +120,7 @@
             </ion-note>
           </div>
         </ion-item>
+        <div class="ion-padding-horizontal ion-padding-bottom"></div>
 
         <ion-item routerLink="game-boards">
           <div>
@@ -137,7 +138,8 @@
         </div>
       </ion-item-group>
 
-      <ion-button routerLink="setup" [disabled]="!form.valid" translate>generate-setup</ion-button>
+      <ion-button routerLink="setup" [state]="{ validated: form.valid }" [disabled]="!form.valid" translate>generate-setup
+      </ion-button>
     </form>
   </ion-list>
 
@@ -147,15 +149,17 @@
   <ion-label>
     <div>
       <p>
-        <ion-text><strong translate>action-phase-scoring</strong></ion-text>
-        <ion-text translate>{{item.actionPhaseScoring}}</ion-text>
+        <ion-text><strong translate>action-phase-scoring</strong>
+          <span translate> {{item.actionPhaseScoring}}</span>
+        </ion-text>
       </p>
       <p>
-        <ion-text><strong translate>end-round-reward</strong></ion-text>
-        <ion-text translate [translateParams]="{ count: item.endRoundRewardConditionCount }">
-          {{item.endRoundRewardCondition}}</ion-text>
-        <ion-text translate [translateParams]="{ count: item.endRoundRewardCount }">
-          {{item.endRoundReward}}</ion-text>
+        <ion-text><strong translate>end-round-reward</strong>
+          <span translate [translateParams]="{ count: item.endRoundRewardConditionCount }">
+            {{item.endRoundRewardCondition}}</span>
+          <span translate [translateParams]="{ count: item.endRoundRewardCount }">
+            {{item.endRoundReward}}</span>
+        </ion-text>
       </p>
     </div>
   </ion-label>
