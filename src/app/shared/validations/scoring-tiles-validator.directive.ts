@@ -4,7 +4,7 @@ import { ActionPhaseScoring, EndRoundRewardCondition, ScoringTile } from '../../
 import { MAX_OCURRENCES_END_ROUND_REWARD_CONDITION, TOTAL_ROUNDS } from '../constants';
 
 class Options {
-  allowCityScoring1stRound: boolean;
+  allowTownScoring1stRound: boolean;
 }
 
 // Provided to check if the scoring tiles picked randomly are valid
@@ -14,7 +14,7 @@ export const isValidCombinationScoringTiles = (scoringTiles: ScoringTile[], opti
   }
 
   // Non official rule: prevent town scoring in the first round
-  if (!options.allowCityScoring1stRound && scoringTiles[0].actionPhaseScoring === ActionPhaseScoring.town) {
+  if (!options.allowTownScoring1stRound && scoringTiles[0].actionPhaseScoring === ActionPhaseScoring.town) {
     return false;
   }
 
@@ -48,12 +48,12 @@ export const isValidCombinationScoringTiles = (scoringTiles: ScoringTile[], opti
 export class ScoringTilesValidatorDirective implements Validator {
 
   @Input()
-  allowCityScoring1stRound = true;
+  allowTownScoring1stRound = true;
 
   validate(control: AbstractControl): ValidationErrors {
     const scoringTiles = control.value as ScoringTile[];
     if (!scoringTiles) { return null; }
-    return this.isValidCombinationPossible(scoringTiles, { allowCityScoring1stRound: this.allowCityScoring1stRound })
+    return this.isValidCombinationPossible(scoringTiles, { allowTownScoring1stRound: this.allowTownScoring1stRound })
       ? null
       : { invalidScoringTiles: true };
   }
@@ -72,7 +72,7 @@ export class ScoringTilesValidatorDirective implements Validator {
 
     const round = selectedScoringTiles.length;
 
-    if (round === 1 && !options.allowCityScoring1stRound) {
+    if (round === 1 && !options.allowTownScoring1stRound) {
       // Non official rule: prevent town scoring in the first round
       if (selectedScoringTiles[0].actionPhaseScoring === ActionPhaseScoring.town) {
         return false;

@@ -22,6 +22,9 @@ export class NewGamePage implements OnInit, OnDestroy {
   @ViewChild('bonusCardsSelect')
   private bonusCardsSelect: NgModel;
 
+  @ViewChild('scoringTilesSelect')
+  private scoringTilesSelect: NgModel;
+
   @ViewChild('scoringTileTemplate', { static: true })
   private scoringTileTemplate: TemplateRef<SelectableItemTemplateContext<ScoringTile>>;
 
@@ -75,6 +78,11 @@ export class NewGamePage implements OnInit, OnDestroy {
     this.changeDetectorRef.detectChanges(); // Force update values bound to the validator
     this.factionsSelect.control.updateValueAndValidity();
     this.bonusCardsSelect.control.updateValueAndValidity();
+  }
+
+  onAllowTownScoring1stRoundChange() {
+    this.changeDetectorRef.detectChanges(); // Force update values bound to the validator
+    this.scoringTilesSelect.control.updateValueAndValidity();
   }
 
   fillMissingPlayerNames() {

@@ -47,7 +47,7 @@ export class Profile implements GameSetupOptions {
     public gameBoards: GameBoard[],
     public numPlayers = 2,
     public factionSelectMode = FactionSelectMode.bid,
-    public allowCityScoring1stRound = true,
+    public allowTownScoring1stRound = true,
     public playerNames: string[] = []
   ) {
   }
@@ -68,7 +68,7 @@ export class Profile implements GameSetupOptions {
     setupOptions.gameBoards = this.gameBoards;
     setupOptions.numPlayers = this.numPlayers;
     setupOptions.factionSelectMode = this.factionSelectMode;
-    setupOptions.allowCityScoring1stRound = this.allowCityScoring1stRound;
+    setupOptions.allowTownScoring1stRound = this.allowTownScoring1stRound;
     // do not replace playerNames
     if (!setupOptions.playerNames) {
       setupOptions.playerNames = this.playerNames;

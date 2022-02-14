@@ -78,12 +78,12 @@
           <input type="hidden" name="factions" [(ngModel)]="setup.factions" appFactionsValidator
             [numPlayers]="setup.numPlayers" #factionsSelect="ngModel">
         </ion-item>
-        <div class="ion-padding-horizontal ion-padding-bottom">
+        <div class="ion-padding-horizontal">
           <ion-text *ngIf="factionsSelect.errors?.invalidFactions" color="danger" translate>factions-invalid
           </ion-text>
         </div>
 
-        <ion-item routerLink="bonus-cards">
+        <ion-item routerLink="bonus-cards" class="ion-margin-top">
           <div>
             <ion-label translate>bonus-cards</ion-label>
             <ion-note translate [translateParams]="{ num: setup.bonusCards.length }">bonus-cards-description</ion-note>
@@ -91,28 +91,37 @@
           <input type="hidden" name="bonusCards" [(ngModel)]="setup.bonusCards" appSelectedMinimumValidator
             [minimum]="setup.numPlayers + 3" #bonusCardsSelect="ngModel">
         </ion-item>
-        <div class="ion-padding-horizontal ion-padding-bottom">
+        <div class="ion-padding-horizontal">
           <ion-text *ngIf="bonusCardsSelect.errors?.invalidMinimum" color="danger" translate>
             bonus-cards-invalid
           </ion-text>
         </div>
 
-        <ion-item routerLink="scoring-tiles">
+        <ion-item routerLink="scoring-tiles" class="ion-margin-top">
           <div>
             <ion-label translate>scoring-tiles</ion-label>
             <ion-note translate [translateParams]="{ num: setup.scoringTiles.length }">scoring-tiles-description
             </ion-note>
           </div>
           <input type="hidden" name="scoringTiles" [(ngModel)]="setup.scoringTiles" appScoringTilesValidator
-            [allowCityScoring1stRound]="setup.allowCityScoring1stRound" #scoringTilesSelect="ngModel">
+            [allowTownScoring1stRound]="setup.allowTownScoring1stRound" #scoringTilesSelect="ngModel">
         </ion-item>
-        <div class="ion-padding-horizontal ion-padding-bottom">
+        <div class="ion-padding-horizontal">
           <ion-text *ngIf="scoringTilesSelect.errors?.invalidScoringTiles" color="danger" translate>
             scoring-tiles-invalid
           </ion-text>
         </div>
 
-        <ion-item routerLink="extra-final-scoring-tiles">
+        <ion-item class="ion-margin-top">
+          <div>
+            <ion-label translate>allow-town-scoring-1st-round</ion-label>
+            <ion-note translate>allow-town-scoring-1st-round-description</ion-note>
+          </div>
+          <ion-checkbox name="allowTownScoring1stRound" [(ngModel)]="setup.allowTownScoring1stRound"
+            (ionChange)="onAllowTownScoring1stRoundChange()" slot="end"></ion-checkbox>
+        </ion-item>
+
+        <ion-item routerLink="extra-final-scoring-tiles" class="ion-margin-top">
           <div>
             <ion-label translate>extra-final-scoring-tiles</ion-label>
             <ion-note translate [translateParams]="{ num: setup.extraFinalScoringTiles.length }">
@@ -120,9 +129,8 @@
             </ion-note>
           </div>
         </ion-item>
-        <div class="ion-padding-horizontal ion-padding-bottom"></div>
 
-        <ion-item routerLink="game-boards">
+        <ion-item routerLink="game-boards" class="ion-margin-top">
           <div>
             <ion-label translate>game-boards</ion-label>
             <ion-note translate [translateParams]="{ num: setup.gameBoards.length }">game-boards-description
@@ -131,14 +139,15 @@
           <input type="hidden" name="gameBoards" [(ngModel)]="setup.gameBoards" appSelectedMinimumValidator
             [minimum]="1" #gameBoardsSelect="ngModel">
         </ion-item>
-        <div class="ion-padding-horizontal ion-padding-bottom">
+        <div class="ion-padding-horizontal">
           <ion-text *ngIf="gameBoardsSelect.errors?.invalidMinimum" color="danger" translate>
             game-boards-invalid
           </ion-text>
         </div>
       </ion-item-group>
 
-      <ion-button routerLink="setup" [state]="{ validated: form.valid }" [disabled]="!form.valid" translate>generate-setup
+      <ion-button routerLink="setup" [state]="{ validated: form.valid }" [disabled]="!form.valid" class="ion-margin-top"
+        translate>generate-setup
       </ion-button>
     </form>
   </ion-list>

@@ -10,6 +10,8 @@
   "action-phase-scoring.trade": "2 victory points when resolving a trade.",
   "action-phase-scoring.trading-house": "3 victory points when building a trading house.",
   "action-phase-scoring": "Action phase scoring:",
+  "allow-town-scoring-1st-round-description": "If unchecked, the scoring tile that gives 5 points when funding a town will not appear in the first round.",
+  "allow-town-scoring-1st-round": "Allow action phase scoring for towns in first round.",
   "bonus-card.6-coins": "6 coins",
   "bonus-card.cult-track-and-coins": "Advance 1 in a cult track and 2 coins",
   "bonus-card.move-ships-and-ship": "Move ships and and 1 ship",

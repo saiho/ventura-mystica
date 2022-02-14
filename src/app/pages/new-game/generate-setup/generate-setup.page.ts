@@ -57,7 +57,7 @@ export class GenerateSetupPage implements OnInit {
       this.pickedScoringTiles = _.sampleSize(this.setup.scoringTiles, TOTAL_ROUNDS);
       maxIter--;
     } while (
-      !isValidCombinationScoringTiles(this.pickedScoringTiles, { allowCityScoring1stRound: this.setup.allowCityScoring1stRound })
+      !isValidCombinationScoringTiles(this.pickedScoringTiles, { allowTownScoring1stRound: this.setup.allowTownScoring1stRound })
       && maxIter >= 0);
 
     // Pick extra final scoring tile randomly
