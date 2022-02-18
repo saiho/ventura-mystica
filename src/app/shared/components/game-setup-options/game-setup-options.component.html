@@ -1,0 +1,134 @@
+<ion-item-group>
+  <ion-item-divider>
+    <ion-label translate>players</ion-label>
+  </ion-item-divider>
+  <ion-radio-group name="numPlayers" [(ngModel)]="setup.numPlayers" (ionChange)="onNumPlayersChange()">
+    <ion-item lines="none">
+      <ion-label style="min-width: 140px;" translate>number-of-players</ion-label>
+      <div class="single-line">
+        <ion-item *ngFor="let num of [2, 3, 4, 5]">
+          <ion-label>{{num}}</ion-label>
+          <ion-radio slot="start" [value]="num"></ion-radio>
+        </ion-item>
+      </div>
+    </ion-item>
+  </ion-radio-group>
+  <ng-container *ngFor="let num of [1, 2, 3, 4, 5]">
+    <ion-item *ngIf="num <= setup.numPlayers">
+      <ion-label translate [translateParams]="{ num: num }" class="ion-padding-end">name-of-player</ion-label>
+      <ion-input name="{{'playerName' + num}}" [(ngModel)]="setup.playerNames[num - 1]" (ionChange)="onPlayerNameChange()"
+        required></ion-input>
+    </ion-item>
+  </ng-container>
+</ion-item-group>
+
+<ion-item-group>
+  <ion-item-divider>
+    <ion-label translate>setup</ion-label>
+  </ion-item-divider>
+
+  <ion-radio-group name="factionSelectMode" [(ngModel)]="setup.factionSelectMode">
+    <ion-item lines="none">
+      <ion-label style="min-width: 140px;" translate>faction-select-mode</ion-label>
+      <div class="single-line">
+        <ion-item>
+          <ion-label translate>faction-select-mode.bid</ion-label>
+          <ion-radio slot="start" value="faction-select-mode.bid"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label translate>faction-select-mode.two-alternatives</ion-label>
+          <ion-radio slot="start" value="faction-select-mode.two-alternatives"></ion-radio>
+        </ion-item>
+      </div>
+    </ion-item>
+  </ion-radio-group>
+
+  <ion-item routerLink="factions">
+    <div>
+      <ion-label translate>factions</ion-label>
+      <ion-note translate [translateParams]="{ num: setup.factions.length }">factions-description</ion-note>
+    </div>
+    <input type="hidden" name="factions" [(ngModel)]="setup.factions" appFactionsValidator
+      [numPlayers]="setup.numPlayers" #factionsSelect="ngModel">
+  </ion-item>
+  <div class="ion-padding-horizontal">
+    <ion-text *ngIf="factionsSelect.errors?.invalidFactions" color="danger" translate>factions-invalid</ion-text>
+  </div>
+
+  <ion-item routerLink="bonus-cards" class="ion-margin-top">
+    <div>
+      <ion-label translate>bonus-cards</ion-label>
+      <ion-note translate [translateParams]="{ num: setup.bonusCards.length }">bonus-cards-description</ion-note>
+    </div>
+    <input type="hidden" name="bonusCards" [(ngModel)]="setup.bonusCards" [minlength]="setup.numPlayers + 3" required
+      #bonusCardsSelect="ngModel">
+  </ion-item>
+  <div class="ion-padding-horizontal">
+    <ion-text *ngIf="bonusCardsSelect.errors?.required || bonusCardsSelect.errors?.minlength" color="danger" translate>
+      bonus-cards-invalid</ion-text>
+  </div>
+
+  <ion-item routerLink="scoring-tiles" class="ion-margin-top">
+    <div>
+      <ion-label translate>scoring-tiles</ion-label>
+      <ion-note translate [translateParams]="{ num: setup.scoringTiles.length }">scoring-tiles-description
+      </ion-note>
+    </div>
+    <input type="hidden" name="scoringTiles" [(ngModel)]="setup.scoringTiles" appScoringTilesValidator
+      [allowTownScoring1stRound]="setup.allowTownScoring1stRound" #scoringTilesSelect="ngModel">
+  </ion-item>
+  <div class="ion-padding-horizontal">
+    <ion-text *ngIf="scoringTilesSelect.errors?.invalidScoringTiles" color="danger" translate>scoring-tiles-invalid
+    </ion-text>
+  </div>
+
+  <ion-item class="ion-margin-top">
+    <div>
+      <ion-label translate>allow-town-scoring-1st-round</ion-label>
+      <ion-note translate>allow-town-scoring-1st-round-description</ion-note>
+    </div>
+    <ion-checkbox name="allowTownScoring1stRound" [(ngModel)]="setup.allowTownScoring1stRound"
+      (ionChange)="onAllowTownScoring1stRoundChange()" slot="end"></ion-checkbox>
+  </ion-item>
+
+  <ion-item routerLink="extra-final-scoring-tiles" class="ion-margin-top">
+    <div>
+      <ion-label translate>extra-final-scoring-tiles</ion-label>
+      <ion-note translate [translateParams]="{ num: setup.extraFinalScoringTiles.length }">
+        extra-final-scoring-tiles-description</ion-note>
+    </div>
+  </ion-item>
+
+  <ion-item routerLink="game-boards" class="ion-margin-top">
+    <div>
+      <ion-label translate>game-boards</ion-label>
+      <ion-note translate [translateParams]="{ num: setup.gameBoards.length }">game-boards-description</ion-note>
+    </div>
+    <input type="hidden" name="gameBoards" [(ngModel)]="setup.gameBoards" [minlength]="1" required
+      #gameBoardsSelect="ngModel">
+  </ion-item>
+  <div class="ion-padding-horizontal">
+    <ion-text *ngIf="gameBoardsSelect.errors?.required || gameBoardsSelect.errors?.minlength" color="danger" translate>
+      game-boards-invalid</ion-text>
+  </div>
+</ion-item-group>
+
+<ng-template #scoringTileTemplate let-item="item">
+  <ion-label>
+    <div>
+      <p>
+        <ion-text><strong translate>action-phase-scoring</strong>
+          <span translate> {{item.actionPhaseScoring}}</span>
+        </ion-text>
+      </p>
+      <p>
+        <ion-text><strong translate>end-round-reward</strong>
+          <span translate [translateParams]="{ count: item.endRoundRewardConditionCount }">
+            {{item.endRoundRewardCondition}}</span>
+          <span translate [translateParams]="{ count: item.endRoundRewardCount }">
+            {{item.endRoundReward}}</span>
+        </ion-text>
+      </p>
+    </div>
+  </ion-label>
+</ng-template>

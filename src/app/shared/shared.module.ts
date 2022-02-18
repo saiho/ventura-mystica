@@ -1,25 +1,21 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
-import { DateIntPipe } from '../pipes/date-int.pipe';
+import { GameSetupOptionsComponent } from './components/game-setup-options/game-setup-options.component';
 import { GridSelectionPageModule } from './pages/grid-selection/grid-selection.module';
+import { DateIntPipe } from './pipes/date-int.pipe';
 import { GameSetupService } from './services/game-setup.service';
-import { FactionsValidatorDirective } from './validations/factions-validator.directive';
-import { ScoringTilesValidatorDirective } from './validations/scoring-tiles-validator.directive';
-import { SelectedMinimumDirective } from './validations/selected-minimum-validator.directive';
+import { FactionsValidatorDirective } from './validators/factions-validator.directive';
+import { ScoringTilesValidatorDirective } from './validators/scoring-tiles-validator.directive';
 
 @NgModule({
-  declarations: [
-    DateIntPipe,
-    SelectedMinimumDirective,
-    FactionsValidatorDirective,
-    ScoringTilesValidatorDirective
-  ],
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     TranslateModule,
     IonicModule,
     GridSelectionPageModule
@@ -27,11 +23,16 @@ import { SelectedMinimumDirective } from './validations/selected-minimum-validat
   exports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     TranslateModule,
     IonicModule,
-    GridSelectionPageModule,
     DateIntPipe,
-    SelectedMinimumDirective,
+    GridSelectionPageModule,
+    GameSetupOptionsComponent
+  ],
+  declarations: [
+    DateIntPipe,
+    GameSetupOptionsComponent,
     FactionsValidatorDirective,
     ScoringTilesValidatorDirective
   ],

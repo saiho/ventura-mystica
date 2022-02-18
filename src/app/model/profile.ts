@@ -48,7 +48,13 @@ export class Profile implements GameSetupOptions {
     public numPlayers = 2,
     public factionSelectMode = FactionSelectMode.bid,
     public allowTownScoring1stRound = true,
-    public playerNames: string[] = []
+    public playerNames: string[] = [
+      'default-player-name.1',
+      'default-player-name.2',
+      'default-player-name.3',
+      'default-player-name.4',
+      'default-player-name.5'
+    ]
   ) {
   }
 
@@ -60,7 +66,7 @@ export class Profile implements GameSetupOptions {
     return this.name;
   };
 
-  public copyOptionsTo(setupOptions: GameSetupOptions) {
+  public copyOptionsTo(setupOptions: GameSetupOptions, preservePlayerNames: boolean) {
     setupOptions.factions = this.factions;
     setupOptions.bonusCards = this.bonusCards;
     setupOptions.scoringTiles = this.scoringTiles;
@@ -69,8 +75,7 @@ export class Profile implements GameSetupOptions {
     setupOptions.numPlayers = this.numPlayers;
     setupOptions.factionSelectMode = this.factionSelectMode;
     setupOptions.allowTownScoring1stRound = this.allowTownScoring1stRound;
-    // do not replace playerNames
-    if (!setupOptions.playerNames) {
+    if (!preservePlayerNames) {
       setupOptions.playerNames = this.playerNames;
     }
   }
