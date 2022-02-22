@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameSetupOptionsComponent } from './components/game-setup-options/game-setup-options.component';
+import { InputTrimDirective } from './directives/input-trim.directive';
 import { GridSelectionPageModule } from './pages/grid-selection/grid-selection.module';
 import { DateIntPipe } from './pipes/date-int.pipe';
 import { GameSetupService } from './services/game-setup.service';
@@ -27,11 +28,13 @@ import { ScoringTilesValidatorDirective } from './validators/scoring-tiles-valid
     TranslateModule,
     IonicModule,
     DateIntPipe,
+    InputTrimDirective,
     GridSelectionPageModule,
     GameSetupOptionsComponent
   ],
   declarations: [
     DateIntPipe,
+    InputTrimDirective,
     GameSetupOptionsComponent,
     FactionsValidatorDirective,
     ScoringTilesValidatorDirective

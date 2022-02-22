@@ -17,7 +17,7 @@
     <ion-item *ngIf="num <= setup.numPlayers">
       <ion-label translate [translateParams]="{ num: num }" class="ion-padding-end">name-of-player</ion-label>
       <ion-input name="{{'playerName' + num}}" [(ngModel)]="setup.playerNames[num - 1]" (ionChange)="onPlayerNameChange()"
-        required></ion-input>
+        required appTrim></ion-input>
     </ion-item>
   </ng-container>
 </ion-item-group>
