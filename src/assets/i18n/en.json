@@ -97,6 +97,7 @@
   "new-game": "New game",
   "number-of-players": "Number of players",
   "ok": "OK",
+  "player-names-required": "Enter a name for all players",
   "player.1": "1<sup>st</sup> player:",
   "player.2": "2<sup>nd</sup> player:",
   "player.3": "3<sup>rd</sup> player:",

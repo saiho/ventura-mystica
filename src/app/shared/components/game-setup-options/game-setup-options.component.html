@@ -13,13 +13,18 @@
       </div>
     </ion-item>
   </ion-radio-group>
-  <ng-container *ngFor="let num of [1, 2, 3, 4, 5]">
-    <ion-item *ngIf="num <= setup.numPlayers">
-      <ion-label translate [translateParams]="{ num: num }" class="ion-padding-end">name-of-player</ion-label>
-      <ion-input name="{{'playerName' + num}}" [(ngModel)]="setup.playerNames[num - 1]" (ionChange)="onPlayerNameChange()"
-        required appTrim></ion-input>
-    </ion-item>
-  </ng-container>
+  <div ngModelGroup="playerNames" #playerNamesGroup="ngModelGroup">
+    <ng-container *ngFor="let num of [1, 2, 3, 4, 5]">
+      <ion-item *ngIf="num <= setup.numPlayers">
+        <ion-label translate [translateParams]="{ num: num }" class="ion-padding-end">name-of-player</ion-label>
+        <ion-input name="{{'playerName' + num}}" [(ngModel)]="setup.playerNames[num - 1]"
+          (ionChange)="onPlayerNameChange()" [required]="playerNamesRequired" appTrim></ion-input>
+      </ion-item>
+    </ng-container>
+    <div class="ion-padding-horizontal">
+      <ion-text *ngIf="playerNamesGroup.invalid" color="danger" translate>player-names-required</ion-text>
+    </div>
+  </div>
 </ion-item-group>
 
 <ion-item-group>

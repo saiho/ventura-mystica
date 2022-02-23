@@ -14,6 +14,9 @@ import { GameSetupService } from '../../services/game-setup.service';
 })
 export class GameSetupOptionsComponent implements OnInit {
 
+  @Input()
+  playerNamesRequired = false;
+
   @ViewChild('factionsSelect')
   private factionsSelect: NgModel;
 

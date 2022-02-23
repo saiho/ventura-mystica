@@ -21,7 +21,7 @@
       </ion-select>
     </ion-item>
     <form #form="ngForm">
-      <app-game-setup-options [profile]="profile"></app-game-setup-options>
+      <app-game-setup-options [profile]="profile" [playerNamesRequired]="true"></app-game-setup-options>
       <ion-button routerLink="setup" [state]="{ validated: form.valid }" [disabled]="!form.valid" class="ion-margin-top"
         translate>generate-setup</ion-button>
     </form>
