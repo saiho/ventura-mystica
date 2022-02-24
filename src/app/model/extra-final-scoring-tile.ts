@@ -1,8 +1,10 @@
 import { SelectableItem } from '../shared/pages/grid-selection/grid-selection.page';
+import { Expansion } from './expansion';
 
 export class ExtraFinalScoringTile implements SelectableItem {
   public constructor(
-    public readonly name: string
+    public readonly name: string,
+    public readonly expansion: Expansion
   ) {
   }
 
@@ -12,14 +14,14 @@ export class ExtraFinalScoringTile implements SelectableItem {
 }
 
 export const EXTRA_FINAL_SCORING_TILES_FIRE_ICE = [
-  new ExtraFinalScoringTile('final-scoring-tile.greatest-distance'),
-  new ExtraFinalScoringTile('final-scoring-tile.distance-stronghold-sanctuary'),
-  new ExtraFinalScoringTile('final-scoring-tile.outpost'),
-  new ExtraFinalScoringTile('final-scoring-tile.settlements')
+  new ExtraFinalScoringTile('final-scoring-tile.greatest-distance', Expansion.fireIce),
+  new ExtraFinalScoringTile('final-scoring-tile.distance-stronghold-sanctuary', Expansion.fireIce),
+  new ExtraFinalScoringTile('final-scoring-tile.outpost', Expansion.fireIce),
+  new ExtraFinalScoringTile('final-scoring-tile.settlements', Expansion.fireIce)
 ];
 
 export const EXTRA_FINAL_SCORING_TILES_MERCHANTS = [
-  new ExtraFinalScoringTile('final-scoring-tile.trade-markers')
+  new ExtraFinalScoringTile('final-scoring-tile.trade-markers', Expansion.merchants)
 ];
 
 export const EXTRA_FINAL_SCORING_TILES_ALL = [
