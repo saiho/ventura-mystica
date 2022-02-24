@@ -4,9 +4,9 @@ import { Faction } from './faction';
 import { GameBoard } from './game-board';
 import { ScoringTile } from './scoring-tile';
 
-export enum FactionSelectMode {
-  bid = 'faction-select-mode.bid',
-  twoAlternativesPerPlayer = 'faction-select-mode.two-alternatives'
+export enum FactionPickMode {
+  bid = 'faction-pick-mode.bid',
+  twoAlternativesPerPlayer = 'faction-pick-mode.two-alternatives'
 }
 
 export interface GameSetupOptions {
@@ -16,7 +16,7 @@ export interface GameSetupOptions {
   extraFinalScoringTiles: ExtraFinalScoringTile[];
   gameBoards: GameBoard[];
   numPlayers: number;
-  factionSelectMode: FactionSelectMode;
+  factionPickMode: FactionPickMode;
   allowTownScoring1stRound: boolean;
   playerNames: string[];
 }

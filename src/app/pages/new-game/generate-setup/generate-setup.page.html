@@ -22,7 +22,7 @@
               <ion-text> {{setup.playerNames[playerOrder[num - 1] - 1]}}</ion-text>
             </ion-label>
           </ion-item>
-          <div class="single-line" *ngIf="setup.factionSelectMode === 'faction-select-mode.two-alternatives'">
+          <div class="single-line" *ngIf="setup.factionPickMode === 'faction-pick-mode.two-alternatives'">
             <ion-item lines="none">
               <ion-label color="medium"><strong translate>factions-choose</strong></ion-label>
             </ion-item>
@@ -35,7 +35,7 @@
       </ng-container>
     </ion-item-group>
 
-    <ion-item-group *ngIf="setup.factionSelectMode === 'faction-select-mode.bid'">
+    <ion-item-group *ngIf="setup.factionPickMode === 'faction-pick-mode.bid'">
       <ion-item-divider>
         <ion-label translate>factions-bid-on</ion-label>
       </ion-item-divider>

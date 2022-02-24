@@ -27,7 +27,7 @@ import {
   GAME_BOARDS_FIRE_ICE,
   GAME_BOARDS_MERCHANTS
 } from './game-board';
-import { FactionSelectMode, GameSetupOptions } from './game-setup-options';
+import { FactionPickMode, GameSetupOptions } from './game-setup-options';
 import {
   ScoringTile,
   SCORING_TILES_ALL,
@@ -46,7 +46,7 @@ export class Profile implements GameSetupOptions {
     public extraFinalScoringTiles: ExtraFinalScoringTile[],
     public gameBoards: GameBoard[],
     public numPlayers = 2,
-    public factionSelectMode = FactionSelectMode.bid,
+    public factionPickMode = FactionPickMode.bid,
     public allowTownScoring1stRound = true,
     public playerNames: string[] = [
       'default-player-name.1',
@@ -73,7 +73,7 @@ export class Profile implements GameSetupOptions {
     setupOptions.extraFinalScoringTiles = this.extraFinalScoringTiles;
     setupOptions.gameBoards = this.gameBoards;
     setupOptions.numPlayers = this.numPlayers;
-    setupOptions.factionSelectMode = this.factionSelectMode;
+    setupOptions.factionPickMode = this.factionPickMode;
     setupOptions.allowTownScoring1stRound = this.allowTownScoring1stRound;
     if (!preservePlayerNames) {
       setupOptions.playerNames = this.playerNames;

@@ -4,7 +4,7 @@ import { BonusCard } from 'src/app/model/bonus-card';
 import { ExtraFinalScoringTile } from 'src/app/model/extra-final-scoring-tile';
 import { Faction } from 'src/app/model/faction';
 import { GameBoard } from 'src/app/model/game-board';
-import { FactionSelectMode } from 'src/app/model/game-setup-options';
+import { FactionPickMode } from 'src/app/model/game-setup-options';
 import { ScoringTile } from 'src/app/model/scoring-tile';
 import { TOTAL_ROUNDS } from 'src/app/shared/constants';
 import { isValidCombinationScoringTiles } from 'src/app/shared/validators/scoring-tiles-validator.directive';
@@ -39,7 +39,7 @@ export class GenerateSetupPage implements OnInit {
     // Group factions by terrain (color)
     // Pick randomly as many terrains as players
     const groupedByTerrain = _.sampleSize(_.groupBy(this.setup.factions, 'terrain'), this.setup.numPlayers);
-    if (this.setup.factionSelectMode === FactionSelectMode.bid) {
+    if (this.setup.factionPickMode === FactionPickMode.bid) {
       // Pick randomly one faction of each terrain
       this.pickedFactionsBid = groupedByTerrain.map(l => _.sample(l));
     } else {
