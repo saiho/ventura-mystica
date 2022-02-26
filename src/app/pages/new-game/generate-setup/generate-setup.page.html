@@ -14,36 +14,47 @@
       <ion-item-divider>
         <ion-label translate>players</ion-label>
       </ion-item-divider>
-      <ng-container *ngFor="let num of [1, 2, 3, 4, 5]">
-        <ng-container *ngIf="num <= setup.numPlayers">
-          <ion-item>
-            <ion-label>
-              <ion-text color="medium"><strong [innerHtml]="'player.' + num | translate"></strong></ion-text>
-              <ion-text> {{setup.playerNames[playerOrder[num - 1] - 1]}}</ion-text>
-            </ion-label>
+      <ng-container *ngFor="let num of [1, 2, 3, 4, 5].slice(0, setup.numPlayers)">
+        <ion-item>
+          <ion-label>
+            <ion-text color="medium"><strong [innerHtml]="'player.' + num | translate"></strong></ion-text>
+            <ion-text> {{setup.playerNames[playerOrder[num - 1] - 1]}}</ion-text>
+          </ion-label>
+        </ion-item>
+        <div class="single-line" *ngIf="setup.factionPickMode === factionPickMode.twoAlternativesPerPlayer">
+          <ion-item lines="none">
+            <ion-label color="medium"><strong translate>factions-choose</strong></ion-label>
           </ion-item>
-          <div class="single-line" *ngIf="setup.factionPickMode === 'faction-pick-mode.two-alternatives'">
-            <ion-item lines="none">
-              <ion-label color="medium"><strong translate>factions-choose</strong></ion-label>
-            </ion-item>
-            <ion-item *ngFor="let faction of pickedFactionsTwoAlternatives[num - 1]">
+          <ng-container *ngFor="let faction of pickedFactionsTwoAlternatives[num - 1]; let i = index">
+            <ion-item>
               <ion-icon name="body"></ion-icon>
               <ion-label translate>{{faction.name}}</ion-label>
             </ion-item>
-          </div>
-        </ng-container>
+            <ion-item *ngIf="setup.artifacts === artifactPickMode.assignToFaction">
+              <ion-icon name="compass"></ion-icon>
+              <ion-label translate
+                [translateParams]="{ artifact: pickedArtifactsTwoAlternatives[num - 1][i].name | translate }">
+                with-artifact</ion-label>
+            </ion-item>
+          </ng-container>
+        </div>
       </ng-container>
     </ion-item-group>
 
-    <ion-item-group *ngIf="setup.factionPickMode === 'faction-pick-mode.bid'">
+    <ion-item-group *ngIf="setup.factionPickMode === factionPickMode.bid">
       <ion-item-divider>
         <ion-label translate>factions-bid-on</ion-label>
       </ion-item-divider>
       <ion-row>
-        <ion-col *ngFor="let faction of pickedFactionsBid">
+        <ion-col *ngFor="let faction of pickedFactionsBid; let i = index">
           <ion-item>
             <ion-icon name="body"></ion-icon>
             <ion-label translate>{{faction.name}}</ion-label>
+          </ion-item>
+          <ion-item *ngIf="setup.artifacts === artifactPickMode.assignToFaction">
+            <ion-icon name="compass"></ion-icon>
+            <ion-label translate [translateParams]="{ artifact: pickedArtifacts[i].name | translate }">
+              with-artifact</ion-label>
           </ion-item>
         </ion-col>
       </ion-row>
@@ -95,6 +106,21 @@
       <ion-item>
         <ion-label translate>{{pickedGameBoard.name}}</ion-label>
       </ion-item>
+    </ion-item-group>
+
+    <ion-item-group
+      *ngIf="setup.artifacts === artifactPickMode.asNumPlayers || setup.artifacts === artifactPickMode.asNumPlayersLessOne">
+      <ion-item-divider>
+        <ion-label translate>artifacts</ion-label>
+      </ion-item-divider>
+      <ion-row>
+        <ion-col *ngFor="let artifact of pickedArtifacts">
+          <ion-item>
+            <ion-icon name="compass"></ion-icon>
+            <ion-label translate>{{ artifact.name }}</ion-label>
+          </ion-item>
+        </ion-col>
+      </ion-row>
     </ion-item-group>
   </ion-list>
 

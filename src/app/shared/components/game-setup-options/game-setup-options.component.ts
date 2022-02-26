@@ -1,6 +1,7 @@
 import { ChangeDetectorRef, Component, Input, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ControlContainer, NgForm, NgModel } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
+import { ArtifactPickMode, FactionPickMode } from 'src/app/model/game-setup-options';
 import { Profile } from 'src/app/model/profile';
 import { ScoringTile } from 'src/app/model/scoring-tile';
 import { SelectableItemTemplateContext } from '../../pages/grid-selection/grid-selection.page';
@@ -28,6 +29,9 @@ export class GameSetupOptionsComponent implements OnInit {
 
   @ViewChild('scoringTileTemplate', { static: true })
   private scoringTileTemplate: TemplateRef<SelectableItemTemplateContext<ScoringTile>>;
+
+  readonly factionPickMode = FactionPickMode;
+  readonly artifactPickMode = ArtifactPickMode;
 
   private preservePlayerNames = false;
 

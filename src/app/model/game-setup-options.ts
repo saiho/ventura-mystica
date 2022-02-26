@@ -9,6 +9,13 @@ export enum FactionPickMode {
   twoAlternativesPerPlayer = 'faction-pick-mode.two-alternatives'
 }
 
+export enum ArtifactPickMode {
+  none = 'artifact-pick-mode.none',
+  asNumPlayers = 'artifact-pick-mode.as-num-players',
+  asNumPlayersLessOne = 'artifact-pick-mode.as-num-players-less-one',
+  assignToFaction = 'artifact-pick-mode.assign-to-faction'
+}
+
 export interface GameSetupOptions {
   factions: Faction[];
   bonusCards: BonusCard[];
@@ -18,5 +25,6 @@ export interface GameSetupOptions {
   numPlayers: number;
   factionPickMode: FactionPickMode;
   allowTownScoring1stRound: boolean;
+  artifacts: ArtifactPickMode;
   playerNames: string[];
 }

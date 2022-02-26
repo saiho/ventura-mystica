@@ -3,7 +3,7 @@ import { BonusCard } from 'src/app/model/bonus-card';
 import { ExtraFinalScoringTile } from 'src/app/model/extra-final-scoring-tile';
 import { Faction } from 'src/app/model/faction';
 import { GameBoard } from 'src/app/model/game-board';
-import { FactionPickMode, GameSetupOptions } from 'src/app/model/game-setup-options';
+import { ArtifactPickMode, FactionPickMode, GameSetupOptions } from 'src/app/model/game-setup-options';
 import { ScoringTile } from 'src/app/model/scoring-tile';
 import { SelectableItemTemplateContext } from 'src/app/shared/pages/grid-selection/grid-selection.page';
 
@@ -19,6 +19,7 @@ export class GameSetupService implements GameSetupOptions {
   factionPickMode: FactionPickMode;
   allowTownScoring1stRound: boolean;
   playerNames: string[];
+  artifacts: ArtifactPickMode;
 
   // Data shared between routes
   scoringTileTemplate: TemplateRef<SelectableItemTemplateContext<ScoringTile>>;

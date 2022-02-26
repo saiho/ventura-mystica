@@ -38,11 +38,11 @@
       <div class="single-line">
         <ion-item>
           <ion-label translate>faction-pick-mode.bid</ion-label>
-          <ion-radio slot="start" value="faction-pick-mode.bid"></ion-radio>
+          <ion-radio slot="start" [value]="factionPickMode.bid"></ion-radio>
         </ion-item>
         <ion-item>
           <ion-label translate>faction-pick-mode.two-alternatives</ion-label>
-          <ion-radio slot="start" value="faction-pick-mode.two-alternatives"></ion-radio>
+          <ion-radio slot="start" [value]="factionPickMode.twoAlternativesPerPlayer"></ion-radio>
         </ion-item>
       </div>
     </ion-item>
@@ -116,6 +116,30 @@
     <ion-text *ngIf="gameBoardsSelect.errors?.required || gameBoardsSelect.errors?.minlength" color="danger" translate>
       game-boards-invalid</ion-text>
   </div>
+
+  <ion-radio-group name="artifacts" [(ngModel)]="setup.artifacts">
+    <ion-item lines="none">
+      <ion-label style="min-width: 140px;" translate>artifact-pick-mode</ion-label>
+      <div class="single-line">
+        <ion-item>
+          <ion-label translate>artifact-pick-mode.none</ion-label>
+          <ion-radio slot="start" [value]="artifactPickMode.none"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label translate>artifact-pick-mode.as-num-players-less-one</ion-label>
+          <ion-radio slot="start" [value]="artifactPickMode.asNumPlayersLessOne"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label translate>artifact-pick-mode.as-num-players</ion-label>
+          <ion-radio slot="start" [value]="artifactPickMode.asNumPlayers"></ion-radio>
+        </ion-item>
+        <ion-item>
+          <ion-label translate>artifact-pick-mode.assign-to-faction</ion-label>
+          <ion-radio slot="start" [value]="artifactPickMode.assignToFaction"></ion-radio>
+        </ion-item>
+      </div>
+    </ion-item>
+  </ion-radio-group>
 </ion-item-group>
 
 <ng-template #scoringTileTemplate let-item="item">

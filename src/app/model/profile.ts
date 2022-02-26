@@ -27,7 +27,7 @@ import {
   GAME_BOARDS_FIRE_ICE,
   GAME_BOARDS_MERCHANTS
 } from './game-board';
-import { FactionPickMode, GameSetupOptions } from './game-setup-options';
+import { ArtifactPickMode, FactionPickMode, GameSetupOptions } from './game-setup-options';
 import {
   ScoringTile,
   SCORING_TILES_ALL,
@@ -45,6 +45,7 @@ export class Profile implements GameSetupOptions {
     public scoringTiles: ScoringTile[],
     public extraFinalScoringTiles: ExtraFinalScoringTile[],
     public gameBoards: GameBoard[],
+    public artifacts: ArtifactPickMode,
     public numPlayers = 2,
     public factionPickMode = FactionPickMode.bid,
     public allowTownScoring1stRound = true,
@@ -75,6 +76,7 @@ export class Profile implements GameSetupOptions {
     setupOptions.numPlayers = this.numPlayers;
     setupOptions.factionPickMode = this.factionPickMode;
     setupOptions.allowTownScoring1stRound = this.allowTownScoring1stRound;
+    setupOptions.artifacts = this.artifacts;
     if (!preservePlayerNames) {
       setupOptions.playerNames = this.playerNames;
     }
@@ -88,7 +90,8 @@ export const BASIC_PROFILE = new Profile(
   BONUS_CARDS_BASIC,
   SCORING_TILES_BASIC,
   [],
-  GAME_BOARDS_BASIC);
+  GAME_BOARDS_BASIC,
+  ArtifactPickMode.none);
 
 export const PREDEFINED_PROFILES = [
   BASIC_PROFILE,
@@ -99,7 +102,8 @@ export const PREDEFINED_PROFILES = [
     BONUS_CARDS_BASIC,
     SCORING_TILES_BASIC,
     EXTRA_FINAL_SCORING_TILES_FIRE_ICE,
-    [...GAME_BOARDS_BASIC, ...GAME_BOARDS_FIRE_ICE]),
+    [...GAME_BOARDS_BASIC, ...GAME_BOARDS_FIRE_ICE],
+    ArtifactPickMode.none),
   new Profile(
     true,
     'predefined-profile.fire-ice-and-mini-expansion',
@@ -107,7 +111,8 @@ export const PREDEFINED_PROFILES = [
     [...BONUS_CARDS_BASIC, ...BONUS_CARDS_MINI_EXPANSION],
     [...SCORING_TILES_BASIC, ...SCORING_TILES_MINI_EXPANSION],
     EXTRA_FINAL_SCORING_TILES_FIRE_ICE,
-    [...GAME_BOARDS_BASIC, ...GAME_BOARDS_FIRE_ICE]),
+    [...GAME_BOARDS_BASIC, ...GAME_BOARDS_FIRE_ICE],
+    ArtifactPickMode.none),
   new Profile(
     true,
     'predefined-profile.power-coming',
@@ -115,7 +120,8 @@ export const PREDEFINED_PROFILES = [
     BONUS_CARDS_BASIC,
     SCORING_TILES_BASIC,
     [],
-    GAME_BOARDS_BASIC),
+    GAME_BOARDS_BASIC,
+    ArtifactPickMode.none),
   new Profile(
     true,
     'predefined-profile.fire-ice-and-mini-expansion-and-power-coming',
@@ -123,7 +129,8 @@ export const PREDEFINED_PROFILES = [
     [...BONUS_CARDS_BASIC, ...BONUS_CARDS_MINI_EXPANSION],
     [...SCORING_TILES_BASIC, ...SCORING_TILES_MINI_EXPANSION],
     EXTRA_FINAL_SCORING_TILES_FIRE_ICE,
-    [...GAME_BOARDS_BASIC, ...GAME_BOARDS_FIRE_ICE]),
+    [...GAME_BOARDS_BASIC, ...GAME_BOARDS_FIRE_ICE],
+    ArtifactPickMode.none),
   new Profile(
     true,
     'predefined-profile.all-official',
@@ -131,7 +138,8 @@ export const PREDEFINED_PROFILES = [
     [...BONUS_CARDS_BASIC, ...BONUS_CARDS_MINI_EXPANSION, ...BONUS_CARDS_MERCHANTS],
     [...SCORING_TILES_MINI_EXPANSION, ...SCORING_TILES_MERCHANTS],
     [...EXTRA_FINAL_SCORING_TILES_FIRE_ICE, ...EXTRA_FINAL_SCORING_TILES_MERCHANTS],
-    [...GAME_BOARDS_BASIC, ...GAME_BOARDS_FIRE_ICE, ...GAME_BOARDS_MERCHANTS]),
+    [...GAME_BOARDS_BASIC, ...GAME_BOARDS_FIRE_ICE, ...GAME_BOARDS_MERCHANTS],
+    ArtifactPickMode.none),
   new Profile(
     true,
     'predefined-profile.all-official-and-unofficial',
@@ -139,5 +147,6 @@ export const PREDEFINED_PROFILES = [
     BONUS_CARDS_ALL,
     SCORING_TILES_ALL,
     EXTRA_FINAL_SCORING_TILES_ALL,
-    GAME_BOARDS_ALL)
+    GAME_BOARDS_ALL,
+    ArtifactPickMode.assignToFaction)
 ];

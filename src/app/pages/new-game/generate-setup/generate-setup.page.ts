@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from 'lodash';
+import { Artifact, ARTIFACTS_ALL } from 'src/app/model/artifact';
 import { BonusCard } from 'src/app/model/bonus-card';
 import { ExtraFinalScoringTile } from 'src/app/model/extra-final-scoring-tile';
 import { Faction } from 'src/app/model/faction';
 import { GameBoard } from 'src/app/model/game-board';
-import { FactionPickMode } from 'src/app/model/game-setup-options';
+import { ArtifactPickMode, FactionPickMode } from 'src/app/model/game-setup-options';
 import { ScoringTile } from 'src/app/model/scoring-tile';
 import { TOTAL_ROUNDS } from 'src/app/shared/constants';
 import { isValidCombinationScoringTiles } from 'src/app/shared/validators/scoring-tiles-validator.directive';
@@ -24,7 +25,12 @@ export class GenerateSetupPage implements OnInit {
   pickedScoringTiles: ScoringTile[];
   pickedExtraFinalScoringTile: ExtraFinalScoringTile;
   pickedGameBoard: GameBoard;
+  pickedArtifacts: Artifact[];
+  pickedArtifactsTwoAlternatives: Artifact[][];
   playerOrder: number[];
+
+  readonly factionPickMode = FactionPickMode;
+  readonly artifactPickMode = ArtifactPickMode;
 
   constructor(
     public setup: GameSetupService
@@ -65,6 +71,21 @@ export class GenerateSetupPage implements OnInit {
 
     // Pick game board randomly
     this.pickedGameBoard = _.sample(this.setup.gameBoards);
+
+    // Pick artifacts
+    if (this.setup.artifacts === ArtifactPickMode.asNumPlayersLessOne) {
+      this.pickedArtifacts = _.sampleSize(ARTIFACTS_ALL, this.setup.numPlayers - 1);
+    } else if (this.setup.artifacts === ArtifactPickMode.asNumPlayers) {
+      this.pickedArtifacts = _.sampleSize(ARTIFACTS_ALL, this.setup.numPlayers);
+    } else if (this.setup.artifacts === ArtifactPickMode.assignToFaction) {
+      if (this.setup.factionPickMode === FactionPickMode.bid) {
+        this.pickedArtifacts = _.sampleSize(ARTIFACTS_ALL, this.pickedFactionsBid.length);
+      } else {
+        const pickedArtifacts: Artifact[] = _.sampleSize(ARTIFACTS_ALL, _.flatten(this.pickedFactionsTwoAlternatives).length);
+        this.pickedArtifactsTwoAlternatives =
+          this.pickedFactionsTwoAlternatives.map(alternatives => pickedArtifacts.splice(0, alternatives.length));
+      }
+    }
 
     this.playerOrder = _.shuffle(_.take([1, 2, 3, 4, 5], this.setup.numPlayers));
   }
