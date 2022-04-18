@@ -48,7 +48,8 @@ export class Profile implements GameSetupOptions {
     public artifacts: ArtifactPickMode,
     public numPlayers = 2,
     public factionPickMode = FactionPickMode.bid,
-    public allowTownScoring1stRound = true,
+    public preventTownScoring1stRound = true,
+    public preventTripleActionPhaseScoring = true,
     public playerNames: string[] = [
       'default-player-name.1',
       'default-player-name.2',
@@ -75,7 +76,8 @@ export class Profile implements GameSetupOptions {
     setupOptions.gameBoards = this.gameBoards;
     setupOptions.numPlayers = this.numPlayers;
     setupOptions.factionPickMode = this.factionPickMode;
-    setupOptions.allowTownScoring1stRound = this.allowTownScoring1stRound;
+    setupOptions.preventTownScoring1stRound = this.preventTownScoring1stRound;
+    setupOptions.preventTripleActionPhaseScoring = this.preventTripleActionPhaseScoring;
     setupOptions.artifacts = this.artifacts;
     if (!preservePlayerNames) {
       setupOptions.playerNames = this.playerNames;

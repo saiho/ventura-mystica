@@ -24,7 +24,8 @@ export interface GameSetupOptions {
   gameBoards: GameBoard[];
   numPlayers: number;
   factionPickMode: FactionPickMode;
-  allowTownScoring1stRound: boolean;
+  preventTownScoring1stRound: boolean;
+  preventTripleActionPhaseScoring: boolean;
   artifacts: ArtifactPickMode;
   playerNames: string[];
 }

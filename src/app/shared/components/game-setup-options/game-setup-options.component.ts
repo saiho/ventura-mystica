@@ -67,7 +67,12 @@ export class GameSetupOptionsComponent implements OnInit {
     this.preservePlayerNames = true;
   }
 
-  onAllowTownScoring1stRoundChange() {
+  onPreventTownScoring1stRoundChange() {
+    this.changeDetectorRef.detectChanges(); // Force update values bound to the validator
+    this.scoringTilesSelect.control.updateValueAndValidity();
+  }
+
+  onPreventTripleActionPhaseScoring() {
     this.changeDetectorRef.detectChanges(); // Force update values bound to the validator
     this.scoringTilesSelect.control.updateValueAndValidity();
   }

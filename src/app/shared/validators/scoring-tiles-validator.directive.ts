@@ -1,10 +1,11 @@
 import { Directive, Input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
 import { ActionPhaseScoring, EndRoundRewardCondition, ScoringTile } from '../../model/scoring-tile';
-import { MAX_OCURRENCES_END_ROUND_REWARD_CONDITION, TOTAL_ROUNDS } from '../constants';
+import { MAX_OCCURRENCES_ACTION_PHASE_SCORING, MAX_OCCURRENCES_END_ROUND_REWARD_CONDITION, TOTAL_ROUNDS } from '../constants';
 
 class Options {
-  allowTownScoring1stRound: boolean;
+  preventTownScoring1stRound: boolean;
+  preventTripleActionPhaseScoring: boolean;
 }
 
 // Provided to check if the scoring tiles picked randomly are valid
@@ -14,7 +15,7 @@ export const isValidCombinationScoringTiles = (scoringTiles: ScoringTile[], opti
   }
 
   // Non official rule: prevent town scoring in the first round
-  if (!options.allowTownScoring1stRound && scoringTiles[0].actionPhaseScoring === ActionPhaseScoring.town) {
+  if (options.preventTownScoring1stRound && scoringTiles[0].actionPhaseScoring === ActionPhaseScoring.town) {
     return false;
   }
 
@@ -25,14 +26,30 @@ export const isValidCombinationScoringTiles = (scoringTiles: ScoringTile[], opti
   }
 
   // No more than 2 rewards can be based in the same cult
-  for (let i = 0; i < TOTAL_ROUNDS - 1 - MAX_OCURRENCES_END_ROUND_REWARD_CONDITION; i++) {
+  for (let i = 0; i < TOTAL_ROUNDS - 1 - MAX_OCCURRENCES_END_ROUND_REWARD_CONDITION; i++) {
     const endRoundRewardCondition = scoringTiles[i].endRoundRewardCondition;
-    let ocurrencesEndRoundRewardCondition = 1;
+    let occurrencesEndRoundRewardCondition = 1;
     for (let j = i + 1; j < TOTAL_ROUNDS - 1; j++) {
       if (endRoundRewardCondition === scoringTiles[j].endRoundRewardCondition) {
-        ocurrencesEndRoundRewardCondition++;
-        if (ocurrencesEndRoundRewardCondition > MAX_OCURRENCES_END_ROUND_REWARD_CONDITION) {
+        occurrencesEndRoundRewardCondition++;
+        if (occurrencesEndRoundRewardCondition > MAX_OCCURRENCES_END_ROUND_REWARD_CONDITION) {
           return false;
+        }
+      }
+    }
+  }
+
+  // Non official rule: no more than 2 action phase scoring of the same type
+  if (options.preventTripleActionPhaseScoring) {
+    for (let i = 0; i < TOTAL_ROUNDS - MAX_OCCURRENCES_ACTION_PHASE_SCORING; i++) {
+      const actionPhaseScoring = scoringTiles[i].actionPhaseScoring;
+      let occurrencesActionPhaseScoring = 1;
+      for (let j = i + 1; j < TOTAL_ROUNDS; j++) {
+        if (actionPhaseScoring === scoringTiles[j].actionPhaseScoring) {
+          occurrencesActionPhaseScoring++;
+          if (occurrencesActionPhaseScoring > MAX_OCCURRENCES_ACTION_PHASE_SCORING) {
+            return false;
+          }
         }
       }
     }
@@ -48,12 +65,18 @@ export const isValidCombinationScoringTiles = (scoringTiles: ScoringTile[], opti
 export class ScoringTilesValidatorDirective implements Validator {
 
   @Input()
-  allowTownScoring1stRound = true;
+  preventTownScoring1stRound = false;
+
+  @Input()
+  preventTripleActionPhaseScoring = false;
 
   validate(control: AbstractControl): ValidationErrors {
     const scoringTiles = control.value as ScoringTile[];
     if (!scoringTiles) { return null; }
-    return this.isValidCombinationPossible(scoringTiles, { allowTownScoring1stRound: this.allowTownScoring1stRound })
+    return this.isValidCombinationPossible(scoringTiles, {
+      preventTownScoring1stRound: this.preventTownScoring1stRound,
+      preventTripleActionPhaseScoring: this.preventTripleActionPhaseScoring
+    })
       ? null
       : { invalidScoringTiles: true };
   }
@@ -72,7 +95,7 @@ export class ScoringTilesValidatorDirective implements Validator {
 
     const round = selectedScoringTiles.length;
 
-    if (round === 1 && !options.allowTownScoring1stRound) {
+    if (round === 1 && options.preventTownScoring1stRound) {
       // Non official rule: prevent town scoring in the first round
       if (selectedScoringTiles[0].actionPhaseScoring === ActionPhaseScoring.town) {
         return false;
@@ -86,18 +109,31 @@ export class ScoringTilesValidatorDirective implements Validator {
       }
     }
 
-    if (round > MAX_OCURRENCES_END_ROUND_REWARD_CONDITION && round < TOTAL_ROUNDS) {
+    if (round > MAX_OCCURRENCES_END_ROUND_REWARD_CONDITION && round < TOTAL_ROUNDS) {
       // No more than 2 rewards can be based in the same cult
       for (const endRoundRewardCondition in EndRoundRewardCondition) {
         if (selectedScoringTiles.filter(
           scoringTile => scoringTile.endRoundRewardCondition === endRoundRewardCondition
-        ).length > MAX_OCURRENCES_END_ROUND_REWARD_CONDITION) {
+        ).length > MAX_OCCURRENCES_END_ROUND_REWARD_CONDITION) {
           return false;
         }
       }
     }
 
-    // In no more tiles to pick, everything is OK
+    // Non official rule: no more than 2 action phase scoring of the same type
+    if (options.preventTripleActionPhaseScoring) {
+      if (round > MAX_OCCURRENCES_ACTION_PHASE_SCORING) {
+        for (const actionPhaseScoring in ActionPhaseScoring) {
+          if (selectedScoringTiles.filter(
+            scoringTile => scoringTile.actionPhaseScoring === actionPhaseScoring
+          ).length > MAX_OCCURRENCES_ACTION_PHASE_SCORING) {
+            return false;
+          }
+        }
+      }
+    }
+
+    // If no more tiles to pick, everything is OK
     if (round === TOTAL_ROUNDS) {
       return true;
     }

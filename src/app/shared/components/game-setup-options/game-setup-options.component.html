@@ -80,7 +80,8 @@
       </ion-note>
     </div>
     <input type="hidden" name="scoringTiles" [(ngModel)]="setup.scoringTiles" appScoringTilesValidator
-      [allowTownScoring1stRound]="setup.allowTownScoring1stRound" #scoringTilesSelect="ngModel">
+      [preventTownScoring1stRound]="setup.preventTownScoring1stRound"
+      [preventTripleActionPhaseScoring]="setup.preventTripleActionPhaseScoring" #scoringTilesSelect="ngModel">
   </ion-item>
   <div class="ion-padding-horizontal">
     <ion-text *ngIf="scoringTilesSelect.errors?.invalidScoringTiles" color="danger" translate>scoring-tiles-invalid
@@ -89,11 +90,20 @@
 
   <ion-item class="ion-margin-top">
     <div>
-      <ion-label translate>allow-town-scoring-1st-round</ion-label>
-      <ion-note translate>allow-town-scoring-1st-round-description</ion-note>
+      <ion-label translate>prevent-town-scoring-1st-round</ion-label>
+      <ion-note translate>prevent-town-scoring-1st-round-description</ion-note>
     </div>
-    <ion-checkbox name="allowTownScoring1stRound" [(ngModel)]="setup.allowTownScoring1stRound"
-      (ionChange)="onAllowTownScoring1stRoundChange()" slot="end"></ion-checkbox>
+    <ion-checkbox name="preventTownScoring1stRound" [(ngModel)]="setup.preventTownScoring1stRound"
+      (ionChange)="onPreventTownScoring1stRoundChange()" slot="end"></ion-checkbox>
+  </ion-item>
+
+  <ion-item class="ion-margin-top">
+    <div>
+      <ion-label translate>prevent-triple-action-phase-scoring</ion-label>
+      <ion-note translate>prevent-triple-action-phase-scoring-description</ion-note>
+    </div>
+    <ion-checkbox name="preventTripleActionPhaseScoring" [(ngModel)]="setup.preventTripleActionPhaseScoring"
+      (ionChange)="onPreventTripleActionPhaseScoring()" slot="end"></ion-checkbox>
   </ion-item>
 
   <ion-item routerLink="extra-final-scoring-tiles" class="ion-margin-top">

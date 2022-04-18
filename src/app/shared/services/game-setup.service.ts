@@ -17,7 +17,8 @@ export class GameSetupService implements GameSetupOptions {
   gameBoards: GameBoard[];
   numPlayers: number;
   factionPickMode: FactionPickMode;
-  allowTownScoring1stRound: boolean;
+  preventTownScoring1stRound: boolean;
+  preventTripleActionPhaseScoring: boolean;
   playerNames: string[];
   artifacts: ArtifactPickMode;
 
