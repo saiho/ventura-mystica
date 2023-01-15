@@ -10,9 +10,9 @@ import { Faction } from '../../model/faction';
 export class FactionsValidatorDirective implements Validator {
 
   @Input()
-  numPlayers: number;
+  numPlayers!: number;
 
-  validate(control: AbstractControl): ValidationErrors {
+  validate(control: AbstractControl): ValidationErrors | null {
     const factions = control.value as Faction[];
     if (!factions) { return null; }
     const maxNumFactions = _.uniqBy(factions, 'terrain').length;

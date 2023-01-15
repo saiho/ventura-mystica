@@ -41,7 +41,7 @@ export class ScoringTile implements SelectableItem {
   ) {
   }
 
-  getName(): string {
+  getName(): string | null {
     return null; // Use template for showing description
   }
 }

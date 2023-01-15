@@ -3,7 +3,7 @@ import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@an
 import { ActionPhaseScoring, EndRoundRewardCondition, ScoringTile } from '../../model/scoring-tile';
 import { MAX_OCCURRENCES_ACTION_PHASE_SCORING, MAX_OCCURRENCES_END_ROUND_REWARD_CONDITION, TOTAL_ROUNDS } from '../constants';
 
-class Options {
+interface Options {
   preventTownScoring1stRound: boolean;
   preventTripleActionPhaseScoring: boolean;
 }
@@ -70,7 +70,7 @@ export class ScoringTilesValidatorDirective implements Validator {
   @Input()
   preventTripleActionPhaseScoring = false;
 
-  validate(control: AbstractControl): ValidationErrors {
+  validate(control: AbstractControl): ValidationErrors | null {
     const scoringTiles = control.value as ScoringTile[];
     if (!scoringTiles) { return null; }
     return this.isValidCombinationPossible(scoringTiles, {

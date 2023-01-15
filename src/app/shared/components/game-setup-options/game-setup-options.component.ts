@@ -19,16 +19,16 @@ export class GameSetupOptionsComponent implements OnInit {
   playerNamesRequired = false;
 
   @ViewChild('factionsSelect')
-  private factionsSelect: NgModel;
+  private factionsSelect!: NgModel;
 
   @ViewChild('bonusCardsSelect')
-  private bonusCardsSelect: NgModel;
+  private bonusCardsSelect!: NgModel;
 
   @ViewChild('scoringTilesSelect')
-  private scoringTilesSelect: NgModel;
+  private scoringTilesSelect!: NgModel;
 
   @ViewChild('scoringTileTemplate', { static: true })
-  private scoringTileTemplate: TemplateRef<SelectableItemTemplateContext<ScoringTile>>;
+  private scoringTileTemplate!: TemplateRef<SelectableItemTemplateContext<ScoringTile>>;
 
   readonly factionPickMode = FactionPickMode;
   readonly artifactPickMode = ArtifactPickMode;

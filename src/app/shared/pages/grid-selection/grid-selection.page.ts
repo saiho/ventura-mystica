@@ -1,7 +1,8 @@
 import { Location } from '@angular/common';
-import { Component, Injector, OnInit, TemplateRef, Type } from '@angular/core';
+import { Component, Injector, TemplateRef, Type } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as _ from 'lodash';
+import { Observable } from 'rxjs';
 import { KeysOfType } from '../../utils';
 
 @Component({
@@ -9,15 +10,15 @@ import { KeysOfType } from '../../utils';
   templateUrl: './grid-selection.page.html',
   styleUrls: ['./grid-selection.page.scss'],
 })
-export class GridSelectionPage implements OnInit {
+export class GridSelectionPage {
 
-  title: string;
-  allItems: SelectableItem[];
-  listSelected: boolean[];
-  itemTemplate: TemplateRef<SelectableItemTemplateContext<SelectableItem>>;
+  title: string = '';
+  allItems: SelectableItem[] = [];
+  listSelected: boolean[] = [];
+  itemTemplate: TemplateRef<SelectableItemTemplateContext<SelectableItem>> | null = null;
 
   private bindComponent: any;
-  private bindPropertyItems: KeysOfType<any, SelectableItem[]>;
+  private bindPropertyItems: KeysOfType<any, SelectableItem[]> = '';
 
   constructor(
     private router: Router,
@@ -25,22 +26,20 @@ export class GridSelectionPage implements OnInit {
     private location: Location,
     private injector: Injector
   ) {
-  }
 
-  ngOnInit() {
-    this.route.data.subscribe((data: GridSelectionData<any, SelectableItem>) => {
+    (this.route.data as Observable<GridSelectionData<any, SelectableItem>>).subscribe(data => {
       this.title = data.title;
       this.bindComponent = this.injector.get(data.bindComponentType);
       this.bindPropertyItems = data.bindPropertyItems;
       this.allItems = data.allItems;
       const selectedItems = this.bindComponent[this.bindPropertyItems];
       this.listSelected = this.allItems.map(item => _.find(selectedItems, item) != null);
-      this.itemTemplate = this.bindComponent[data.bindPropertyTemplate];
+      this.itemTemplate = data.bindPropertyTemplate ? this.bindComponent[data.bindPropertyTemplate] : null;
     });
   }
 
   onClickOk() {
-    const newItems = [];
+    const newItems: any[] = [];
     this.listSelected.forEach((selected, i) => {
       if (selected) {
         newItems.push(this.allItems[i]);
@@ -62,7 +61,7 @@ export class GridSelectionPage implements OnInit {
 }
 
 export interface SelectableItem {
-  getName?(): string;
+  getName(): string | null;
   getImage?(): string;
 }
 
@@ -74,6 +73,6 @@ export interface GridSelectionData<T, U extends SelectableItem> {
   readonly title: string;
   readonly bindComponentType: Type<T>;
   readonly bindPropertyItems: KeysOfType<T, U[]>;
-  readonly bindPropertyTemplate?: KeysOfType<T, TemplateRef<SelectableItemTemplateContext<U>>>;
+  readonly bindPropertyTemplate: KeysOfType<T, TemplateRef<SelectableItemTemplateContext<U>>>;
   readonly allItems: U[];
 }

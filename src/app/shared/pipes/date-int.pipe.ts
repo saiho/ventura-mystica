@@ -4,7 +4,7 @@ import { DateTime, DateTimeFormatOptions } from 'luxon';
 @Pipe({ name: 'dateint' })
 export class DateIntPipe implements PipeTransform {
 
-  transform(value: string | Date | DateTime, format: DateTimeFormatOptions = null): string {
+  transform(value: string | Date | DateTime, format: DateTimeFormatOptions | null = null): string {
     if (!value || value === '') {
       return '';
     }

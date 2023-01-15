@@ -10,18 +10,18 @@ import { SelectableItemTemplateContext } from 'src/app/shared/pages/grid-selecti
 @Injectable()
 export class GameSetupService implements GameSetupOptions {
   // Game settings (extracted from the base profile)
-  factions: Faction[];
-  bonusCards: BonusCard[];
-  scoringTiles: ScoringTile[];
-  extraFinalScoringTiles: ExtraFinalScoringTile[];
-  gameBoards: GameBoard[];
-  numPlayers: number;
-  factionPickMode: FactionPickMode;
-  preventTownScoring1stRound: boolean;
-  preventTripleActionPhaseScoring: boolean;
-  playerNames: string[];
-  artifacts: ArtifactPickMode;
+  factions: Faction[] = [];
+  bonusCards: BonusCard[] = [];
+  scoringTiles: ScoringTile[] = [];
+  extraFinalScoringTiles: ExtraFinalScoringTile[] = [];
+  gameBoards: GameBoard[] = [];
+  numPlayers: number = 0;
+  factionPickMode: FactionPickMode = FactionPickMode.bid;
+  preventTownScoring1stRound: boolean = false;
+  preventTripleActionPhaseScoring: boolean = false;
+  playerNames: string[] = [];
+  artifacts: ArtifactPickMode = ArtifactPickMode.none;
 
   // Data shared between routes
-  scoringTileTemplate: TemplateRef<SelectableItemTemplateContext<ScoringTile>>;
+  scoringTileTemplate: TemplateRef<SelectableItemTemplateContext<ScoringTile>> | null = null;
 }

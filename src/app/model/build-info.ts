@@ -1,4 +1,4 @@
-export class BuildInfo {
+export interface BuildInfo {
   version: string;
-  buildDate: string;
+  buildDate: string | null;
 }

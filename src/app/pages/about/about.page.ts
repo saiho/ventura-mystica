@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { BuildInfo } from 'src/app/model/build-info';
 
 @Component({
@@ -17,7 +18,7 @@ export class AboutPage implements OnInit {
   }
 
   ngOnInit() {
-    this.httpClient.get('assets/build-info.json').subscribe((buildInfo: BuildInfo) => {
+    (this.httpClient.get('assets/build-info.json') as Observable<BuildInfo>).subscribe(buildInfo => {
       this.buildInfo = buildInfo;
     });
   }
