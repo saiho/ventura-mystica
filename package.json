@@ -13,8 +13,7 @@
     "build-prod": "ng lint && ng build --configuration=production && node scripts/add-build-info.js",
     "heroku-postbuild": "npm run build-prod",
     "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "lint": "ng lint"
   },
   "engines": {
     "node": "18.x"
