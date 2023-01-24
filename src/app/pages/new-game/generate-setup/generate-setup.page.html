@@ -25,7 +25,7 @@
           <ion-item lines="none">
             <ion-label color="medium"><strong translate>factions-choose</strong></ion-label>
           </ion-item>
-          <ng-container *ngFor="let faction of pickedFactionsTwoAlternatives[num - 1]; let i = index">
+          <ng-container *ngFor="let faction of pickedFactionsTwoAlternatives![num - 1]; let i = index">
             <ion-item>
               <ion-icon name="body"></ion-icon>
               <ion-label translate>{{faction.name}}</ion-label>
@@ -33,7 +33,7 @@
             <ion-item *ngIf="setup.artifacts === artifactPickMode.assignToFaction">
               <ion-icon name="compass"></ion-icon>
               <ion-label translate
-                [translateParams]="{ artifact: pickedArtifactsTwoAlternatives[num - 1][i].name | translate }">
+                [translateParams]="{ artifact: pickedArtifactsTwoAlternatives![num - 1][i].name | translate }">
                 with-artifact</ion-label>
             </ion-item>
           </ng-container>
@@ -53,7 +53,7 @@
           </ion-item>
           <ion-item *ngIf="setup.artifacts === artifactPickMode.assignToFaction">
             <ion-icon name="compass"></ion-icon>
-            <ion-label translate [translateParams]="{ artifact: pickedArtifacts[i].name | translate }">
+            <ion-label translate [translateParams]="{ artifact: pickedArtifacts![i].name | translate }">
               with-artifact</ion-label>
           </ion-item>
         </ion-col>

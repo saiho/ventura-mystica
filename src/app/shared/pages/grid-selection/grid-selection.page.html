@@ -11,8 +11,8 @@
   <ion-list>
     <ion-item *ngFor="let item of allItems; let i = index">
       <ng-container *ngTemplateOutlet="itemTemplate; context: { item: item }"></ng-container>
-      <ng-container *ngIf="!itemTemplate">
-        <ion-label [innerHtml]="item.getName() | translate"></ion-label>
+      <ng-container *ngIf="item.getName()">
+        <ion-label [innerHtml]="item.getName()! | translate"></ion-label>
       </ng-container>
       <ion-checkbox [(ngModel)]="listSelected[i]"></ion-checkbox>
     </ion-item>

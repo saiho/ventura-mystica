@@ -57,7 +57,7 @@
       [numPlayers]="setup.numPlayers" #factionsSelect="ngModel">
   </ion-item>
   <div class="ion-padding-horizontal">
-    <ion-text *ngIf="factionsSelect.errors?.invalidFactions" color="danger" translate>factions-invalid</ion-text>
+    <ion-text *ngIf="factionsSelect.errors?.['invalidFactions']" color="danger" translate>factions-invalid</ion-text>
   </div>
 
   <ion-item routerLink="bonus-cards" class="ion-margin-top">
@@ -69,7 +69,8 @@
       #bonusCardsSelect="ngModel">
   </ion-item>
   <div class="ion-padding-horizontal">
-    <ion-text *ngIf="bonusCardsSelect.errors?.required || bonusCardsSelect.errors?.minlength" color="danger" translate>
+    <ion-text *ngIf="bonusCardsSelect.errors?.['required'] || bonusCardsSelect.errors?.['minlength']" color="danger"
+      translate>
       bonus-cards-invalid</ion-text>
   </div>
 
@@ -84,7 +85,7 @@
       [preventTripleActionPhaseScoring]="setup.preventTripleActionPhaseScoring" #scoringTilesSelect="ngModel">
   </ion-item>
   <div class="ion-padding-horizontal">
-    <ion-text *ngIf="scoringTilesSelect.errors?.invalidScoringTiles" color="danger" translate>scoring-tiles-invalid
+    <ion-text *ngIf="scoringTilesSelect.errors?.['invalidScoringTiles']" color="danger" translate>scoring-tiles-invalid
     </ion-text>
   </div>
 
@@ -123,7 +124,8 @@
       #gameBoardsSelect="ngModel">
   </ion-item>
   <div class="ion-padding-horizontal">
-    <ion-text *ngIf="gameBoardsSelect.errors?.required || gameBoardsSelect.errors?.minlength" color="danger" translate>
+    <ion-text *ngIf="gameBoardsSelect.errors?.['required'] || gameBoardsSelect.errors?.['minlength']" color="danger"
+      translate>
       game-boards-invalid</ion-text>
   </div>
 
