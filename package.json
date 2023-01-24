@@ -11,7 +11,6 @@
     "start": "ng serve",
     "build": "ng build",
     "build-prod": "ng lint && ng build --configuration=production && node scripts/add-build-info.js",
-    "heroku-postbuild": "npm run build-prod",
     "test": "ng test",
     "lint": "ng lint"
   },
@@ -35,7 +34,6 @@
     "@ngx-translate/http-loader": "^7.0.0",
     "@types/lodash": "^4.14.191",
     "@types/luxon": "^3.2.0",
-    "express": "^4.18.2",
     "ionicons": "^6.1.1",
     "lodash": "^4.17.21",
     "luxon": "^3.2.1",
