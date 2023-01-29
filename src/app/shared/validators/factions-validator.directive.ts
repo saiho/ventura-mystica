@@ -1,6 +1,6 @@
 import { Directive, Input } from '@angular/core';
 import { AbstractControl, NG_VALIDATORS, ValidationErrors, Validator } from '@angular/forms';
-import * as _ from 'lodash';
+import { uniqBy } from 'lodash-es';
 import { Faction } from '../../model/faction';
 
 @Directive({
@@ -15,7 +15,7 @@ export class FactionsValidatorDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
     const factions = control.value as Faction[];
     if (!factions) { return null; }
-    const maxNumFactions = _.uniqBy(factions, 'terrain').length;
+    const maxNumFactions = uniqBy(factions, 'terrain').length;
     return this.numPlayers > maxNumFactions ? { invalidFactions: true } : null;
   }
 

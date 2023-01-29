@@ -1,7 +1,7 @@
 import { Location } from '@angular/common';
 import { Component, Injector, TemplateRef, Type } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import * as _ from 'lodash';
+import { find } from 'lodash-es';
 import { Observable } from 'rxjs';
 import { KeysOfType } from '../../utils';
 
@@ -33,7 +33,7 @@ export class GridSelectionPage {
       this.bindPropertyItems = data.bindPropertyItems;
       this.allItems = data.allItems;
       const selectedItems = this.bindComponent[this.bindPropertyItems];
-      this.listSelected = this.allItems.map(item => _.find(selectedItems, item) != null);
+      this.listSelected = this.allItems.map(item => find(selectedItems, item) != null);
       this.itemTemplate = data.bindPropertyTemplate ? this.bindComponent[data.bindPropertyTemplate] : null;
     });
   }

@@ -1,4 +1,4 @@
-import * as _ from 'lodash';
+import { clone } from 'lodash-es';
 import {
   BonusCard,
   BONUS_CARDS_ALL,
@@ -61,7 +61,7 @@ export class Profile implements GameSetupOptions {
   }
 
   public clone(): Profile {
-    return _.clone(this);
+    return clone(this);
   }
 
   public toString(): string {
